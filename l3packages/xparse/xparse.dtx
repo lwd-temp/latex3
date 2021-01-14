@@ -4197,6 +4197,40 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{Copying commands}
+%
+% Since the 2020-10-01 release, the \LaTeXe{} kernel provides
+% \cs{NewCommandCopy} for copying robust commands (a fancy \cs{let}) and
+% \cs{ShowCommand} for showing the definition of robust commands
+% (a fancy \cs{show}).  The machinery for that is extensible, and we can
+% add \pkg{xparse} support to that.  We need to define three commands:
+% \begin{itemize}
+%   \item a conditional to check if a command is an \pkg{xparse} command;
+%   \item a command to copy an \pkg{xparse} command;
+%   \item a command to show an \pkg{xparse} command.
+% \end{itemize}
+%
+% The easiest solution would be to just extract the argument
+% specification and the replacement text of the command and define it
+% again with the proper \pkg{xparse} command.  The problem with that is
+% that if the command has any issue that raises a warning, that would be
+% raised again for the copy, which is a bit awkward, so we go for the
+% long route of dissecting the command's internal structure and copying
+% it bit by bit.
+%
+% There are generally four possible types of \pkg{xparse} commands, by
+% their internal structure:
+% \begin{itemize}
+%   \item robust commands defined with \cs{NewDocumentCommand};
+%   \item expandable commands defined with \cs{NewExpandableDocumentCommand};
+%   \item begin environment commands defined with \cs{NewDocumentEnvironment}
+%     (structurally very similar to \cs{NewDocumentCommand}); and
+%   \item end environment commands, also defined with \cs{NewDocumentEnvironment}.
+% \end{itemize}
+% The plan here is to detect which type of command we're dealing with
+% (if any of the above), and use a dedicated macro that knows how to
+% copy or show such command.
+%
 % \subsection{Argument processors}
 %
 % \begin{macro}{\@@_bool_reverse:N}
