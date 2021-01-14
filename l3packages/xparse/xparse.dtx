@@ -4571,17 +4571,22 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\@@_cmd_type_switch:NnnnF}
 % \begin{macro}{\@@_cmd_if_xparse:NTF}
-% \begin{macro}{\@@_cmd_if_xparse_aux:N}
+% \begin{macro}{\@@_cmd_if_xparse_aux:w}
 %   To determine whether the command is an \pkg{xparse} command check
 %   that its |arg_spec| is empty (this also excludes non-macros) and
 %   that its |replacement_spec| starts with either \cs{@@_start:nNNnnn}
 %   (non-expandable command) or \cs{@@_start_expandable:nNNNNn}
 %   (expandable command) or \cs{@@_start_env:nnnnn} (environment).
+%   \cs{@@_cmd_type_switch:NnnnF} takes the command as the first
+%   argument, and branches to the second, third, and fourth argument
+%   if the command is of one of the types above, respectively.
+%   Otherwise it branches to the fifth (|F|) argument.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_cmd_if_xparse:NTF #1
+\cs_new_protected:Npn \@@_cmd_type_switch:NnnnF #1
   {
-    \exp_args:Nf \str_case_e:nnTF
+    \exp_args:Nf \str_case_e:nnF
       {
         \exp_args:Nf \tl_if_empty:nT { \cs_argument_spec:N #1 }
           {
@@ -4590,10 +4595,17 @@
           }
       }
       {
-        { \token_to_str:N \@@_start:nNNnnn } { }
-        { \token_to_str:N \@@_start_expandable:nNNNNn } { }
-        { \token_to_str:N \@@_start_env:nnnnn } { }
+        { \token_to_str:N \@@_start:nNNnnn } { \use_i:nnnn }
+        { \token_to_str:N \@@_start_expandable:nNNNNn } { \use_ii:nnnn }
+        { \token_to_str:N \@@_start_env:nnnnn } { \use_iii:nnnn }
       }
+      { \use_iv:nnnn }
+  }
+\cs_new_protected:Npn \@@_cmd_if_xparse:NTF #1
+  {
+    \@@_cmd_type_switch:NnnnF #1
+      { \use_i:nn } { \use_i:nn } { \use_i:nn }
+      { \use_ii:nn }
   }
 \cs_new:Npn \@@_cmd_if_xparse_aux:w #1 ~ #2 \q_stop {#1}
 %    \end{macrocode}
