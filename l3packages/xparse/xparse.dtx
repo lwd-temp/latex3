@@ -4231,6 +4231,75 @@
 % (if any of the above), and use a dedicated macro that knows how to
 % copy or show such command.
 %
+% \begin{macro}{\@@_cmd_if_copiable:NTF}
+% \begin{macro}{\@@_cmd_if_xparse_env_end:NTF}
+%   An command was defined with \pkg{xparse} if it starts with
+%   \cs[no-index]{@@_start(|_expandable|_env):\meta{sig}}, which is
+%   checked for with the macro \cs{@@_cmd_if_xparse:NTF}, defined later.
+%   But a command may also have been defined with \pkg{xparse} if it is
+%   the end part of a command, and \cs{@@_cmd_if_xparse:NTF} doesn't
+%   check for that (but we need to for copying), so we do that test here.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cmd_if_xparse_env_end:NTF #1
+  {
+    \str_if_eq:eeTF
+      {
+        \c_backslash_str environment~
+        \exp_last_unbraced:Nf \use_none:nnn
+          { \cs_to_str:N #1 } ~end~aux~
+      }
+      { \cs_replacement_spec:N #1 }
+  }
+\prg_new_protected_conditional:Npnn \@@_cmd_if_copiable:N #1 { TF }
+  {
+    \@@_cmd_if_xparse:NTF #1
+      { \prg_return_true: }
+      {
+        \@@_cmd_if_xparse_env_end:NTF #1
+          { \prg_return_true: }
+          { \prg_return_false: }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@@_cmd_set_eq:NN}
+%   To do the copying, first we check the type of command, to use the
+%   appropriate copying function, as the internal structure changes
+%   greatly for \pkg{xparse}-defined commands.  One special case that is
+%   not detected by \cs{@@_cmd_type_switch:NnnnF} is the \cs{end} part
+%   of an environment, so we check for that separately.  The error cases
+%   shouldn't happen if the user-level \cs{NewCommandCopy} is used (or
+%   if the command is checked beforehand with
+%   \cs{@@_cmd_if_copiable:NTF}), but it doesn't hurt to have it here in
+%   case we ever need to use this internally to copy some command.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cmd_set_eq:NN #1 #2
+  {
+    \@@_cmd_type_switch:NnnnF #2
+      { \@@_robust_cmd_set_eq:NN }
+      { \@@_expandable_cmd_set_eq:NN }
+      { \@@_environment_set_eq:NN }
+      {
+        \@@_cmd_if_xparse_env_end:NTF #2
+          { \@@_environment_set_end_eq:NN }
+          {
+            \bool_set_false:N \l_@@_environment_bool
+            \tl_set:Nn \l_@@_fn_tl {#2}
+            \cs_if_exist:NTF #2
+              { \__kernel_msg_error:nnxx { xparse } { non-xparse } }
+              { \__kernel_msg_error:nnxx { xparse } { unknown } }
+                  { \@@_environment_or_command: }
+                  { to~copy~the }
+          }
+        \use_none:nn
+      }
+    #1 #2
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsection{Argument processors}
 %
 % \begin{macro}{\@@_bool_reverse:N}
