@@ -4387,14 +4387,10 @@
 \cs_new_protected:Npn \@@_get_arg_spec_error_aux:n #1
   {
     #1
-      {
-        \__kernel_msg_error:nnx { xparse } { non-xparse }
+      { \__kernel_msg_error:nnxx { xparse } { non-xparse } }
+      { \__kernel_msg_error:nnxx { xparse } { unknown } }
           { \@@_environment_or_command: }
-      }
-      {
-        \__kernel_msg_error:nnx { xparse } { unknown }
-          { \@@_environment_or_command: }
-      }
+          { for~the~argument~specification~for~the }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4882,10 +4878,7 @@
   }
 \__kernel_msg_new:nnnn { xparse } { non-xparse }
   { \str_uppercase:n #1~not~defined~using~xparse. }
-  {
-    You~have~asked~for~the~argument~specification~for~the~#1,~
-    but~this~was~not~defined~using~xparse.
-  }
+  { You~have~asked~#2~#1,~but~this~was~not~defined~using~xparse. }
 \__kernel_msg_new:nnnn { xparse } { split-excess-tokens }
   { Too~many~'#1'~tokens~when~trying~to~split~argument. }
   {
@@ -4895,10 +4888,7 @@
   }
 \__kernel_msg_new:nnnn { xparse } { unknown }
   { Unknown~document~#1. }
-  {
-    You~have~asked~for~the~argument~specification~for~the~#1,~
-    but~it~is~not~defined.
-  }
+  { You~have~asked~#2~#1,~but~it~is~not~defined. }
 \__kernel_msg_new:nnnn { xparse } { verbatim-newline }
   { Verbatim~argument~of~#1~ended~by~end~of~line. }
   {
