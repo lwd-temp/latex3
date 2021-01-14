@@ -1266,6 +1266,13 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}{\s_@@}
+%   Scratch space.
+%    \begin{macrocode}
+\scan_new:N \s_@@
+%    \end{macrocode}
+% \end{variable}
+%
 % \begin{variable}{\l_@@_tmp_prop, \l_@@_tmpa_tl, \l_@@_tmpb_tl}
 % \begin{macro}{\@@_tmp:w}
 %   Scratch space.
@@ -4296,6 +4303,39 @@
         \use_none:nn
       }
     #1 #2
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% At this point we know that the command has the right shape, so we can
+% just do the copying.
+%
+% \subsubsection{Robust commands}
+%
+% \begin{macro}{\@@_robust_cmd_set_eq:NN}
+%   Copying a robust command is rather easy.  The tricky part is to
+%   define the top-level expansion of the command, because it needs to
+%   cope with possibly expandable defaults to optional arguments (that
+%   must not be expanded at this point) and with optional arguments
+%   whose default is another argument, so parameter tokens may be
+%   involved.  Copying the actual code of the command is just a matter
+%   of copying \cs[no-index]{\meta{name} code}.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_robust_cmd_set_eq:NN #1 #2
+  {
+    \tl_set:Nx \l_@@_tmpa_tl { \cs_to_str:N #1 ~ }
+    \tl_set:Nx \l_@@_tmpb_tl { \cs_to_str:N #2 ~ }
+    \cs_set:Npn \@@_tmp:w ##1
+      { ####1 \exp_not:c {##1} \exp_not:c { ##1 code } ####2 }
+    \use:e
+      {
+        \cs_set:Npx \exp_not:N \@@_tmp:w
+            \@@_tmp:w \l_@@_tmpb_tl \s_@@
+          { \@@_tmp:w \l_@@_tmpa_tl }
+      }
+    \cs_set_protected_nopar:Npx #1
+      { \exp_args:No \exp_not:o { \exp_after:wN \@@_tmp:w #2 \s_@@ } }
+    \cs_set_eq:cc { \l_@@_tmpa_tl code } { \l_@@_tmpb_tl code }
   }
 %    \end{macrocode}
 % \end{macro}
