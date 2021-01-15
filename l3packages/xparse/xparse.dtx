@@ -4340,6 +4340,214 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{Expandable commands}
+%
+% \begin{macro}{\@@_expandable_cmd_set_eq:NN}
+% \begin{macro}{\@@_replace_cmd_name:N}
+%   Copying an expandable command, on the other hand, is a \emph{lot}
+%   more work.  A non-expandable command uses \pkg{xparse}'s macros to
+%   look ahead and grab the arguments to the command, but an expandable
+%   command can't use much of that, since it all requires assignments
+%   based on the command's signature, so an expandable command carries
+%   its argument-grabbing code with itself, along with a bunch of
+%   auxiliaries.  An expandable code contains
+%   \begin{itemize}
+%     \item the top-level macro \cs[no-index]{\meta{name}}
+%     \item the actual code in \cs[no-index]{\meta{name} code}
+%     \item an auxiliary \cs[no-index]{\meta{name}}\verb*| |
+%     \item possibly another auxiliary \cs[no-index]{\meta{name}}\verb*|  |
+%     \item possibly defaults to the optional arguments in
+%       \cs[no-index]{\meta{name} defaults}
+%     \item up to 9 auxiliaries \cs[no-index]{\meta{name} (arg \meta{num})}
+%   \end{itemize}
+%   all of which must be copied, and their \meta{name} replaced by
+%   \meta{new name} in the new command.
+%
+%   We start by defining shorthands, as before, and a function to quickly
+%   replace a leading \meta{name} (possibly with a leading backslash)
+%   by \meta{new name} in a \cs{string}ified control sequence.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_expandable_cmd_set_eq:NN #1 #2
+  {
+    \tl_set:Nx \l_@@_tmpa_tl { \cs_to_str:N #1 ~ }
+    \tl_set:Nx \l_@@_tmpb_tl { \cs_to_str:N #2 ~ }
+    \use:e
+      {
+        \cs_set:Npn \exp_not:N \@@_replace_cmd_name:w ##1 \l_@@_tmpb_tl
+          { \l_@@_tmpa_tl }
+      }
+%    \end{macrocode}
+%   Here is the hardest part:  copy the top-level command and replace
+%   every occurrence of \meta{name} by \meta{new name} inside it.  The
+%   argument |##1| here is \pkg{xparse}'s \cs{@@_start_expandable:nNNNNn}
+%   and the command signature:  these are just passed through.  |##2| is
+%   (possibly) the auxiliary \cs[no-index]{\meta{name}}\verb*|  | or
+%   just \cs[no-index]{\meta{name}}\verb*| |;  \cs{@@_replace_cmd_name:N}
+%   figures that out easily.  |##3| is either |?| or
+%   \cs[no-index]{\meta{name} defaults}.
+%
+%   |##4| is the actual argument parsing code.  It is a list of up to
+%   nine \cs[no-index]{@@_expandable_grab_\meta{type}:w} \meta{parameters}.
+%   We'll iterate over that list with \cs{@@_expandable_signature_copy:w}
+%   which will take care of the copying.
+%    \begin{macrocode}
+    \use:e
+      {
+        \cs_set_protected:Npn \exp_not:N \@@_tmp:w
+            ##1 \exp_not:c { \l_@@_tmpb_tl }
+            ##2 \exp_not:c { \l_@@_tmpb_tl code } ##3 ##4
+      }
+          {
+            \cs_set_nopar:Npx #1
+              {
+                \exp_not:n {##1} \exp_not:c { \l_@@_tmpa_tl }
+                \exp_not:c { \@@_replace_cmd_name:N ##2 }
+                  \exp_not:c { \l_@@_tmpa_tl code }
+                \token_if_eq_charcode:NNTF ? ##3
+                  {##3} { \exp_not:c { \l_@@_tmpa_tl defaults } }
+                {
+                  \@@_expandable_signature_copy:w
+                    ##4 \q_recursion_tail \q_recursion_stop
+                }
+              }
+          }
+    \exp_after:wN \@@_tmp:w #2
+%    \end{macrocode}
+%   After that is done, just copy the code of the command and the
+%   auxiliaries.  Not all are defined, so we check if they exist first.
+%    \begin{macrocode}
+    \cs_set_eq:cc { \l_@@_tmpa_tl code } { \l_@@_tmpb_tl code }
+    \cs_set_eq:cc { \l_@@_tmpa_tl } { \l_@@_tmpb_tl }
+    \cs_if_exist:cT { \l_@@_tmpb_tl \c_space_tl }
+      {
+        \cs_set_eq:cc { \l_@@_tmpa_tl \c_space_tl }
+          { \l_@@_tmpb_tl \c_space_tl }
+      }
+    \cs_if_exist:cT { \l_@@_tmpb_tl defaults }
+      {
+        \cs_set_eq:cc { \l_@@_tmpa_tl defaults }
+          { \l_@@_tmpb_tl defaults }
+      }
+    \int_step_inline:nn { 9 }
+      {
+        \cs_if_exist:cT { \l_@@_tmpb_tl (arg~##1) }
+          {
+            \cs_set_eq:cc { \l_@@_tmpa_tl (arg~##1) }
+              { \l_@@_tmpb_tl (arg~##1) }
+          }
+      }
+  }
+%    \end{macrocode}
+%
+%   This auxiliary will replace the old command name with the new one.
+%   It should be used inside a \cs{csname}\ldots\cs{endcsname}.
+%    \begin{macrocode}
+\cs_new:Npn \@@_replace_cmd_name:N
+  { \exp_after:wN \@@_replace_cmd_name:w \token_to_str:N }
+\cs_new_eq:NN \@@_replace_cmd_name:w ?
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@@_expandable_signature_copy:w}
+% \begin{macro}{\@@_expandable_copy_type:w}
+% \begin{macro}{
+%     \@@_expandable_signature_copy_D:w,
+%     \@@_expandable_signature_copy_D_alt:w,
+%     \@@_expandable_signature_copy_E:w,
+%     \@@_expandable_signature_copy_m:w,
+%     \@@_expandable_signature_copy_m_long:w,
+%     \@@_expandable_signature_copy_R:w,
+%     \@@_expandable_signature_copy_R_alt:w,
+%     \@@_expandable_signature_copy_t:w,
+%     \@@_expandable_signature_copy_u:w,
+%   }
+%   Now we'll loop over the list of argument parsers of the expandable
+%   command, and rewrite them to use the \meta{new name}.  This command
+%   will take the next token, which should be an
+%   \cs[no-index]{@@_expandable_grab_\meta{type}:w}, then
+%   \cs{@@_expandable_copy_type:w} will figure out what the \meta{type}
+%   is, and execute the proper
+%   \cs[no-index]{@@_expandable_signature_copy_\meta{type}:w}.  Each of
+%   these will take the \meta{parameters} relevant to the type, and
+%   rewrite them accordingly for the new command, leaving them unexpanded.
+%    \begin{macrocode}
+\cs_new:Npn \@@_expandable_signature_copy:w #1
+  {
+    \quark_if_recursion_tail_stop:N #1
+    \exp_after:wN \@@_expandable_copy_type:w \token_to_str:N #1 \s_@@
+  }
+\use:e
+  {
+    \cs_new:Npn \exp_not:N \@@_expandable_copy_type:w #1
+      \tl_to_str:n { grab_ } #2 \c_colon_str #3 \s_@@
+        { \exp_not:N \use:c { @@_expandable_signature_copy_#2:w } }
+  }
+\cs_new:Npn \@@_expandable_signature_copy_D:w #1 #2 #3
+  {
+    \exp_not:N \@@_expandable_grab_D:w
+    \exp_not:c { \@@_replace_cmd_name:N #1 }
+    \exp_not:N #2 \exp_not:N #3
+    \@@_expandable_signature_copy:w
+  }
+\cs_new:Npn \@@_expandable_signature_copy_D_alt:w #1 #2
+  {
+    \exp_not:N \@@_expandable_grab_D_alt:w
+    \exp_not:c { \@@_replace_cmd_name:N #1 }
+    \exp_not:N #2
+    \@@_expandable_signature_copy:w
+  }
+\cs_new:Npn \@@_expandable_signature_copy_E:w #1 #2
+  {
+    \exp_not:N \@@_expandable_grab_E:w
+    \exp_not:n { {#1} {#2} }
+    \@@_expandable_signature_copy:w
+  }
+\cs_new:Npn \@@_expandable_signature_copy_m:w
+  {
+    \exp_not:N \@@_expandable_grab_m:w
+    \@@_expandable_signature_copy:w
+  }
+\cs_new:Npn \@@_expandable_signature_copy_m_long:w
+  {
+    \exp_not:N \@@_expandable_grab_m_long:w
+    \@@_expandable_signature_copy:w
+  }
+\cs_new:Npn \@@_expandable_signature_copy_R:w #1 #2 #3
+  {
+    \exp_not:N \@@_expandable_grab_R:w
+    \exp_not:c { \@@_replace_cmd_name:N #1 }
+    \exp_not:N #2 \exp_not:N #3
+    \@@_expandable_signature_copy:w
+  }
+\cs_new:Npn \@@_expandable_signature_copy_R_alt:w #1 #2
+  {
+    \exp_not:N \@@_expandable_grab_R_alt:w
+    \exp_not:c { \@@_replace_cmd_name:N #1 }
+    \exp_not:N #2
+    \@@_expandable_signature_copy:w
+  }
+\cs_new:Npn \@@_expandable_signature_copy_t:w #1 #2
+  {
+    \exp_not:N \@@_expandable_grab_t:w
+    \exp_not:N #1 \exp_not:N #2
+    \@@_expandable_signature_copy:w
+  }
+%</core>
+%<*package>
+\cs_new:Npn \@@_expandable_signature_copy_u:w #1
+  {
+    \exp_not:N \@@_expandable_grab_u:w
+    \exp_not:N #1
+    \@@_expandable_signature_copy:w
+  }
+%</package>
+%<*core>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \subsection{Argument processors}
 %
 % \begin{macro}{\@@_bool_reverse:N}
