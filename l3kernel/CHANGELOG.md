@@ -7,6 +7,9 @@ this project uses date-based 'snapshot' version identifiers.
 
 ## [Unreleased]
 
+### Added
+- `\seq_set_split_keep_spaces:Nnn` (see #784)
+
 ## [2021-02-18]
 
 ### Added
