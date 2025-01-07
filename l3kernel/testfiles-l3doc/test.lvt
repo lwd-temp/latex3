@@ -3,10 +3,39 @@
 %
 
 \input regression-test.tex
+\ExplSyntaxOn
+\debug_on:n { check-declarations, deprecation }
+
+% omit all log lines written by l3doc dependencies
+\int_new:N \g_level_int
+\int_gincr:N \g_level_int % l3doc.cls has level 1
+\cs_new_protected:Npn \level_gincr:
+  {
+    \int_compare:nNnT { \g_level_int } = { 2 } { \OMIT }
+    \int_gincr:N \g_level_int
+  }
+\cs_new_protected:Npn \level_gdecr:
+  {
+    \int_gdecr:N \g_level_int
+    \int_compare:nNnT { \g_level_int } = { 2 } { \TIMO }
+  }
+\hook_gput_code:nnn {class/before}   {.} { \level_gincr: }
+\hook_gput_code:nnn {class/after}    {.} { \level_gdecr: }
+\hook_gput_code:nnn {package/before} {.} { \level_gincr: }
+\hook_gput_code:nnn {package/after}  {.} { \level_gdecr: }
+\ExplSyntaxOff
+
+\START
 \documentclass{l3doc}
 \CodelineIndex
+\OMIT
 \begin{document}
-\START
+\TIMO
+\ExplSyntaxOn
+\tl_gset:Nn \g__codedoc_module_name_tl {foo}
+\ExplSyntaxOff
+
+\showoutput
 \begin{function}{\foo}
   This is a test.
 \end{function}
@@ -19,6 +48,30 @@ And \cs{foo} again.
   Argument \meta{arg}.
 \end{function}
 
+\begin{function}[TF]{\foo_if:n}
+  doc
+\end{function}
+
+% 1585, https://github.com/latex3/latex3/issues/1585
+\begin{function}{\abcde_abcde_abcde_abcde:n}
+  \begin{syntax} \cs[no-index]{abcde_...} \end{syntax}
+  short
+\end{function}
+
+\begin{function}{\abcde_abcde_abcde_abcde:nn}
+  \begin{syntax} \cs[no-index]{abcde_...} \end{syntax}
+  long
+\end{function}
+
+% with long function names, width of syntax should be narrowed
+\begin{function}{\abcde_abcde_abcde_abcde_abcde_abcde_abcde_abcde:nnnn}
+  \begin{syntax}
+    \cs[no-index]{abcde_abcde_abcde_abcde_abcde_abcde_abcde_abcde:nnnn}
+      \Arg{arg1} \Arg{arg2} ...
+  \end{syntax}
+  extremely long
+\end{function}
+
 \begin{macro}{\foo}
     \begin{macrocode}
 test
@@ -28,8 +81,18 @@ test
 %    \end{macrocode}
 \cs{bar}
 \end{macro}
+
+% #730, https://github.com/latex3/latex3/issues/730
+\begin{macro}[TF]{\foo_if:n, \__foo_if:n}
+    \begin{macrocode}
+\prg_new_conditional:Nnn \foo_if:n { p , T , F , TF }
+  { \prg_return_true: }
+\prg_new_conditional:Nnn \__foo_if:n { p , T , F , TF }
+  { \prg_return_true: }
+%    \end{macrocode}
+\end{macro}
+
 \PrintIndex
-\showoutput
 \clearpage
 \OMIT
 \end{document}

@@ -7,6 +7,146 @@ this project uses date-based 'snapshot' version identifiers.
 
 ## [Unreleased]
 
+## [2024-12-25]
+
+### Changed
+- Expand 'value(s)' arg. to `\color_select:nn`, `\color_set:nnn`, etc. (see
+  \#1640)
+
+### Fixed
+- Initialize color `.` properly (see \#1642)
+
+### Added
+- `\file_forget:n`
+
+## [2024-12-09]
+
+### Added
+- `\bitset_use:N` and `\clist_use:N`: this clarifies that bitsets and clists
+  can be used with `V`-type expansion
+- `\sys_if_engine_opentype:(TF)`
+- Add equivalent interfaces for regex functions:
+  - `\int_(g)set_regex_count:Nnn`, `\int_(g)set_regex_count:NNn`
+  - `\seq_(g)set_regex_extract_once:Nnn`, `\seq_(g)set_regex_extract_once:NNn`
+  - `\seq_(g)set_regex_extract_all:Nnn`, `\seq_(g)set_regex_extract_all:NNn`
+  - `\seq_(g)set_regex_split:Nnn`, `\seq_(g)set_regex_split:NNn`
+  - `\tl_if_regex_match:nn(TF)`, `\tl_if_regex_match:nN(TF)`
+  - `\tl_regex_(g)replace_once:Nnn`, `\tl_regex_(g)replace_once:NNn`
+  - `\tl_regex_(g)replace_all:Nnn`, `\tl_regex_(g)replace_all:NNn`
+
+### Fixed
+- `\prop_item:Nn` result not returned in `\exp_not:n` for linked properties
+  (see \#1630)
+
+### Removed
+- `\c_catcode_active_tl`: was missing a `_`, always intended to be internal
+
+## [2024-11-02]
+
+### Added
+- `V`-type variant for all `\<var>_set:Nn` functions
+
+### Fixed
+- Error detection in coffin code (see \#1580)
+
+## [2024-10-09]
+
+### Added
+- `\coffin_ht_plus_dp:(N|c)`
+
+### Fixed
+- Use TU-encoding with lualatex and xelatex in `l3doc`
+- Inconsistent local/global assignments in `l3doc` (see \#1593)
+
+## [2024-09-10]
+
+### Fixed
+- `\seq_map_pairwise_function:NNN` not work with `\seq_map_break:(n)` (issue \#1587)
+
+### Changed
+- Increase outdent of long function names in `l3doc` (issue \#1585)
+
+## [2024-08-30]
+
+### Changed
+- Reduce memory usage when building Unicode data storage
+- Avoid recursive doc for `\file_if_exist:n(TF)` (issue \#1573)
+
+### Fixed
+- Handling of `ltcmd` newlines (`\obeyedline`) in `l3doc` (issue \#1577)
+
+## [2024-08-16]
+
+### Added
+- Add quark (`\q_`) and scan mark (`\s_`) prefixes to naming scheme
+  (issue \#1565)
+
+## [2024-07-20]
+
+### Fixed
+- Implementation of deprecated `\tl_mixed_case:n(n)`
+- Redo the fix for LaTeX2e key properties (issue latex3/latex2e\#1415)
+
+## [2024-06-19]
+
+### Fixed
+- Avoid a low-level error when LaTeX2e key properties are given without a value
+
+## [2024-05-27]
+
+### Added
+- Syntax entries of `\keys_set_groups:nnn(n)N`
+
+### Fixed
+- `\peek_analysis_map_inline:n` with active spaces (issue \#1539)
+
+## [2024-05-08]
+
+### Added
+- Full set of variants for `\prop_(g)put_if_not_in:Nnn`
+- `\keys_set_groups:nnn(n)N` to match `\keys_set_exclude_groups:nnn(n)N`
+
+### Fixed
+- Implementation of deprecated `\pdf_object_write:nn`
+
+## [2024-04-11]
+
+### Added
+- `\prop_(g)put_if_not_in:Nnn` (renamed from `\prop_(g)put_if_new:Nnn`)
+- `\intarray_if_exist:N(TF)`
+- `\fparray_if_exist:N(TF)`
+- Support for 'indexed' PDF objects
+
+### Changed
+- Expand object names in `\pdf_object_...` functions (issue \#1521)
+- Adapt `l3doc` for `ltcmd` change to handling of newlines
+  (see latex3/latex2e\#1304)
+- Return active spaces from `\sys_get_query:n(nn)N` (issue \#1529)
+
+### Fixed
+- False `debug` error raised by `\cctab_const:Nn` (issue \#1508)
+- Undefined `\__kernel_iwo_open:Nn` used in `\iow_shell_open:Nn`
+  (issue \#1515)
+- Naming of register functions in LuaMetaTeX 2.11+ (issue \#1518)
+- Catcode applied to letters by `\sys_get_query:n(nn)N`
+
+### Deprecated
+- `\prop_(g)put_if_new:Nnn` (renamed to `\prop_(g)put_if_not_in:Nnn`)
+
+## [2024-03-14]
+
+### Added
+- Macro interface for `l3sys-query`
+
+### Changed
+- Require that `expl3` is loaded at top level in generic mode
+- Ensure that the dimension arguments to `\box_autosize_to_...:Nnn`
+  are properly formed (issue \#1502)
+
+### Fixed
+- Typeset `TF` of internal conditionals in current color (issue \#730)
+- Some functions and variables were defined locally
+
 ## [2024-02-20]
 
 ### Changed
@@ -840,7 +980,7 @@ this project uses date-based 'snapshot' version identifiers.
   improve target placement, solve pdfTeX and makeindex warnings
 
 ### Fixed
-- Evalutate integer constants only once (issue [\#861](https://github.com/latex3/latex3/issues/861))
+- Evaluate integer constants only once (issue [\#861](https://github.com/latex3/latex3/issues/861))
 - Detect `\ior_map_inline:Nn` calls on undefined streams (issue [\#194](https://github.com/latex3/latex3/issues/194))
 
 ### Deprecated
@@ -1057,7 +1197,7 @@ this project uses date-based 'snapshot' version identifiers.
   also *expandable*
 
 ### Fixed
-- Make `expl3` reload-safe for `latexrelease` (see latex3/latex2e#295)
+- Make `expl3` reload-safe for `latexrelease` (see latex3/latex2e\#295)
 
 ## [2020-02-25]
 
@@ -1687,7 +1827,20 @@ this project uses date-based 'snapshot' version identifiers.
 - Step functions have been added for dim variables,
   e.g. `\dim_step_inline:nnnn`
 
-[Unreleased]: https://github.com/latex3/latex3/compare/2024-02-20...HEAD
+[Unreleased]: https://github.com/latex3/latex3/compare/2024-12-25...HEAD
+[2024-12-25]: https://github.com/latex3/latex3/compare/2024-12-09...2024-12-25
+[2024-12-09]: https://github.com/latex3/latex3/compare/2024-11-02...2024-12-09
+[2024-11-02]: https://github.com/latex3/latex3/compare/2024-10-09...2024-11-02
+[2024-10-09]: https://github.com/latex3/latex3/compare/2024-09-10...2024-10-09
+[2024-09-10]: https://github.com/latex3/latex3/compare/2024-08-30...2024-09-10
+[2024-08-30]: https://github.com/latex3/latex3/compare/2024-08-16...2024-08-30
+[2024-08-16]: https://github.com/latex3/latex3/compare/2024-07-20...2024-08-16
+[2024-07-20]: https://github.com/latex3/latex3/compare/2024-06-19...2024-07-20
+[2024-06-19]: https://github.com/latex3/latex3/compare/2024-05-27...2024-06-19
+[2024-05-27]: https://github.com/latex3/latex3/compare/2024-05-08...2024-05-27
+[2024-05-08]: https://github.com/latex3/latex3/compare/2024-04-11...2024-05-08
+[2024-04-11]: https://github.com/latex3/latex3/compare/2024-03-14...2024-04-11
+[2024-03-14]: https://github.com/latex3/latex3/compare/2024-02-20...2024-03-14
 [2024-02-20]: https://github.com/latex3/latex3/compare/2024-02-18...2024-02-20
 [2024-02-18]: https://github.com/latex3/latex3/compare/2024-02-13...2024-02-18
 [2024-02-13]: https://github.com/latex3/latex3/compare/2024-01-22...2024-02-13

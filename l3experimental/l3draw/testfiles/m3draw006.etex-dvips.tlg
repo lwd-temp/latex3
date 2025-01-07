@@ -9,6 +9,7 @@ TEST 1: \draw_box_use:N (n)
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -30,7 +31,10 @@ TEST 1: \draw_box_use:N (n)
 ....\hbox(0.0+0.0)x0.0
 .....\kern 0.0
 .....\hbox(6.94444+0.0)x0.0
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -53,7 +57,7 @@ TEST 1: \draw_box_use:N (n)
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -66,6 +70,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -87,7 +92,10 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0
 .....\kern 0.0
 .....\hbox(6.94444+0.0)x0.0
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -110,7 +118,7 @@ l. ...  }
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -123,6 +131,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -144,7 +153,10 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0
 .....\kern 0.0
 .....\hbox(6.94444+0.0)x0.0
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -167,7 +179,7 @@ l. ...  }
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -180,6 +192,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -201,7 +214,10 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0
 .....\kern 56.90552
 .....\hbox(6.94444+0.0)x0.0, shifted -56.90552
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -224,7 +240,7 @@ l. ...  }
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -237,6 +253,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -259,7 +276,10 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0
 .....\kern 56.90552
 .....\hbox(6.94444+0.0)x0.0, shifted -56.90552
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -282,8 +302,86 @@ l. ...  }
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ....\special{ps::restore}
+...\special{ps::@endspecial}
+...\special{ps::[end]}
+...\special{color pop}
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(142.66377+0.0)x284.92755
+.\hbox(142.66377+0.0)x284.92755
+..\glue 0.2
+..\hbox(0.0+0.0)x0.0, shifted -0.2
+...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
+...\special{ps::@beginspecial}
+...\special{ps::0.39851 setlinewidth}
+...\special{color push gray 0}
+...\special{ps:SDict begin /color.sc {} def end}
+...\special{ps::0 setlinecap}
+...\special{ps::0 setlinejoin}
+...\special{ps::10 setmiterlimit}
+...\special{ps::[] 0 setdash}
+...\hbox(0.0+0.0)x0.0
+....\special{ps::0 0 moveto}
+....\special{ps::283.46457 0 lineto}
+....\special{ps::141.73228 0 moveto}
+....\special{ps::141.73228 141.73228 lineto}
+....\special{ps::gsave}
+....\special{ps::color.sc}
+....\special{ps::stroke}
+....\special{ps::grestore}
+....\special{ps::newpath}
+....\special{color push rgb 1.0 0.0 0.0}
+....\special{ps:SDict begin /color.sc {} def end}
+....\special{ps::save}
+....\special{color push rgb 0.0 0.0 1.0}
+....\special{ps:SDict begin /color.sc {} def end}
+....\hbox(0.0+0.0)x0.0
+.....\kern 0.0
+.....\hbox(6.94444+0.0)x0.0
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
+......\special{ps::[end]}
+......\special{ps::[begin]}
+......\special{ps::save}
+......\special{ps::currentpoint}
+......\special{ps::currentpoint translate}
+......\special{ps::[1 0 0 -1 0 0] concat}
+......\special{ps::[1 0 0 1 0 0] concat}
+......\special{ps::[1 0 0 -1 0 0] concat}
+......\special{ps::neg exch neg exch translate}
+......\special{ps::[end]}
+......\hbox(6.94444+0.0)x0.0, glue set - 22.50005fil
+.......\hbox(6.94444+0.0)x22.50005
+........\OT1/cmr/m/n/10 H
+........\OT1/cmr/m/n/10 e
+........\OT1/cmr/m/n/10 l
+........\OT1/cmr/m/n/10 l
+........\OT1/cmr/m/n/10 o
+.......\glue 0.0 plus 1.0fil minus 1.0fil
+......\special{ps::[begin]}
+......\special{ps::restore}
+......\special{ps::[end]}
+......\special{ps::[begin]}
+......\special{ps::restore}
+....\special{color pop}
+....\special{ps::restore}
+....\special{ps::0 0 moveto}
+....\special{ps::141.73228 0 lineto}
+....\special{ps::70.86615 0 moveto}
+....\special{ps::70.86615 70.86615 lineto}
+....\special{ps::gsave}
+....\special{ps::color.sc}
+....\special{ps::stroke}
+....\special{ps::grestore}
+....\special{ps::newpath}
+....\special{color pop}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -300,6 +398,7 @@ TEST 2: \draw_coffin_use:Nnn (n)
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -321,7 +420,10 @@ TEST 2: \draw_coffin_use:Nnn (n)
 ....\hbox(0.0+0.0)x0.0
 .....\kern 0.0
 .....\hbox(6.94444+0.0)x0.0
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -352,7 +454,7 @@ TEST 2: \draw_coffin_use:Nnn (n)
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -365,6 +467,7 @@ l. ...  }
 ..\glue 11.25002
 ..\hbox(0.0+0.0)x0.0, shifted -3.47223
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -386,7 +489,10 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0
 .....\kern 0.0
 .....\hbox(3.47221+3.47223)x0.0
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -417,7 +523,7 @@ l. ...  }
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -430,6 +536,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -451,7 +558,10 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0
 .....\kern 0.0
 .....\hbox(6.94444+0.0)x0.0
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -482,7 +592,7 @@ l. ...  }
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -495,6 +605,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -516,7 +627,10 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0
 .....\kern 0.0
 .....\hbox(6.94444+0.0)x0.0
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -547,7 +661,7 @@ l. ...  }
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -560,6 +674,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -581,7 +696,10 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0
 .....\kern 56.90552
 .....\hbox(6.94444+0.0)x0.0, shifted -56.90552
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -612,7 +730,7 @@ l. ...  }
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}
@@ -625,6 +743,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -647,7 +766,10 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0
 .....\kern 56.90552
 .....\hbox(6.94444+0.0)x0.0, shifted -56.90552
-......\special{ps::@endspecial}
+......\special{ps::save}
+......\special{ps::72 Resolution div 72 VResolution div neg scale}
+......\special{ps::magscale{1 DVImag div dup scale}if}
+......\special{ps::draw.x neg draw.y neg translate}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
 ......\special{ps::save}
@@ -678,7 +800,7 @@ l. ...  }
 ......\special{ps::restore}
 ......\special{ps::[end]}
 ......\special{ps::[begin]}
-......\special{ps::@beginspecial}
+......\special{ps::restore}
 ....\special{ps::restore}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}

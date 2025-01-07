@@ -66,11 +66,11 @@ function update_tag_extra(file,content,tagname,tagdate)
 end
 
 uploadconfig = {
-  author      = "The LaTeX Team",
+  author      = "The LaTeX Project team",
   license     = "lppl1.3c",
   summary     = "LaTeX3 programming conventions",
   topic       = {"macro-supp","latex3","expl3"},
-  ctanPath    = "/macros/latex/contrib/l3kernel",
+  ctanPath    = "/macros/latex/required/l3kernel",
   repository  = "https://github.com/latex3/latex3/",
   bugtracker  = "https://github.com/latex3/latex3/issues",
   update      = true,

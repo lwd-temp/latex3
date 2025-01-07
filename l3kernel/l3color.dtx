@@ -2,7 +2,7 @@
 %
 %% File: l3color.dtx
 %
-% Copyright (C) 2017-2024 The LaTeX Project
+% Copyright (C) 2017-2025 The LaTeX Project
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -43,7 +43,7 @@
 %    }^^A
 % }
 %
-% \date{Released 2024-02-20}
+% \date{Released 2024-12-25}
 %
 % \maketitle
 %
@@ -103,7 +103,7 @@
 % \begin{itemize}
 %   \item \texttt{Gray} Grayscale color, with a single axis running from
 %     $0$ (fully black) to $15$ (fully white)
-%   \item \texttt{hsb} Hue-saturation-brightness color, with three axes,all
+%   \item \texttt{hsb} Hue-saturation-brightness color, with three axes, all
 %     real values in the range $[0,1]$ for hue saturation and brightness
 %   \item \texttt{Hsb} Hue-saturation-brightness color, with three axes, integer
 %     in the range $[0,360]$ for hue, real values in the range $[0,1]$ for
@@ -142,7 +142,7 @@
 % Section~\ref{l3color:sec:new-models} for more detail of color support
 % for additional models.
 %
-% When color is selected by model, the \meta{values} given are specified as
+% When color is selected by model, the \meta{value(s)} given are specified as
 % a comma-separated list. The length of the list will therefore be determined
 % by the detail of the model involved.
 %
@@ -233,19 +233,20 @@
 %   color specification as the \meta{name}.
 % \end{function}
 %
-% \begin{function}{\color_set:nnn}
+% \begin{function}[updated = 2024-12-24]{\color_set:nnn}
 %   \begin{syntax}
 %     \cs{color_set:nnn} \Arg{name} \Arg{model(s)} \Arg{value(s)}
 %   \end{syntax}
 %   Stores the color specification equivalent to the \meta{model(s)} and
-%   \meta{values} as the \meta{name}.
+%   \meta{value(s)} as the \meta{name}. The \meta{value(s)} are expanded before
+%   parsing.
 % \end{function}
 %
 % \begin{function}{\color_set_eq:nn}
 %   \begin{syntax}
-%     \cs{color_set_eq:nn} \Arg{name1} \Arg{name2}
+%     \cs{color_set_eq:nn} \Arg{name_1} \Arg{name_2}
 %   \end{syntax}
-%   Copies the color specification in \meta{name2} to \meta{name1}. The
+%   Copies the color specification in \meta{name_2} to \meta{name_1}. The
 %   special name |.| may be used to represent the current color, allowing
 %   it to be saved to a name.
 % \end{function}
@@ -276,7 +277,7 @@
 % These commands set the current color (|.|): other more specialised functions
 % such as fill and stroke selectors do \emph{not} adjust this value.
 %
-% \begin{function}{\color_select:n}
+% \begin{function}[updated = 2024-12-24]{\color_select:n}
 %   \begin{syntax}
 %     \cs{color_select:n} \Arg{color expression}
 %   \end{syntax}
@@ -289,7 +290,8 @@
 %     \cs{color_select:nn} \Arg{model(s)} \Arg{value(s)}
 %   \end{syntax}
 %   Activates the color specification equivalent to the \meta{model(s)} and
-%   \meta{value(s)} for typeset material.
+%   \meta{value(s)} for typeset material. The \meta{value(s)} are fully
+%   expanded before parsing.
 % \end{function}
 %
 % \begin{variable}{\l_color_fixed_model_tl}
@@ -316,16 +318,17 @@
 %   color specification for filling or stroking.
 % \end{function}
 %
-% \begin{function}{\color_fill:nn, \color_stroke:nn}
+% \begin{function}[updated = 2024-12-24]{\color_fill:nn, \color_stroke:nn}
 %   \begin{syntax}
 %     \cs{color_fill:nn} \Arg{model(s)} \Arg{value(s)}
 %   \end{syntax}
 %   Activates the color specification equivalent to the \meta{model(s)} and
-%   \meta{value(s)} for filling or stroking.
+%   \meta{value(s)} for filling or stroking. The \meta{value(s)} are fully
+%   expanded before parsing.
 % \end{function}
 %
 % \begin{variable}[module = color]{color.sc}
-%   When using \texttt{dvips}, this PostScript variables hold the stroke color.
+%   When using \texttt{dvips}, this PostScript variable holds the stroke color.
 % \end{variable}
 %
 % \subsection{Coloring math mode material}
@@ -336,13 +339,15 @@
 % required needs careful handling. The functionality here covers this important
 % use case.
 %
-% \begin{function}[added = 2022-01-26]{\color_math:nn, \color_math:nnn}
+% \begin{function}[added = 2022-01-26, updated = 2024-12-24]
+%   {\color_math:nn, \color_math:nnn}
 %   \begin{syntax}
-%     \cs{color_math:nn} \Arg{color expression}\Arg{content}
+%     \cs{color_math:nn} \Arg{color expression} \Arg{content}
 %     \cs{color_math:nnn} \Arg{model(s)} \Arg{value(s)} \Arg{content}
 %   \end{syntax}
 %   Works as for \cs[no-index]{color_select:n(n)} but applies color only to the math mode
-%   \meta{content}. The function does not generate a group and the \meta{content}
+%   \meta{content}. The \meta{value(s)} are fully expanded before parsing.
+%   The function does not generate a group and the \meta{content}
 %   therefore retains its math atom states. Sub/superscripts are also properly
 %   handled.
 % \end{function}
@@ -406,20 +411,21 @@
 %
 % \begin{function}{\color_export:nnN}
 %   \begin{syntax}
-%     \cs{color_export:nnN} \Arg{color expression} \Arg{format} \Arg{tl}
+%     \cs{color_export:nnN} \Arg{color expression} \Arg{format} \meta{tl var}
 %   \end{syntax}
 %   Parses the \meta{color expression} as described earlier,
 %   then converts to the \meta{format} specified and assigns the data to the
-%   \meta{tl}.
+%   \meta{tl var}.
 % \end{function}
 %
-% \begin{function}{\color_export:nnnN}
+% \begin{function}[updated = 2024-12-24]{\color_export:nnnN}
 %   \begin{syntax}
-%     \cs{color_export:nnnN} \Arg{model} \Arg{value(s)} \Arg{format} \Arg{tl}
+%     \cs{color_export:nnnN} \Arg{model} \Arg{value(s)} \Arg{format} \meta{tl var}
 %   \end{syntax}
 %   Expresses the combination of \meta{model} and \meta{value(s)} in an
 %   internal representation, then converts to the \meta{format} specified and
-%   assigns the data to the \meta{tl}.
+%   assigns the data to the \meta{tl var}. The \meta{value(s)} are fully
+%   expanded before parsing.
 % \end{function}
 %
 % \section{Creating new color models}
@@ -495,7 +501,7 @@
 %
 % Color profiles are used to ensure color accuracy by linking to collaboration.
 % Applying a profile can be used to standardise color which is otherwise
-% device-dependence.
+% device-dependent.
 %
 % \begin{function}[added = 2021-02-23]{\color_profile_apply:nn}
 %   \begin{syntax}
@@ -697,14 +703,14 @@
 % \begin{macro}{\@@_convert:nnnN, \@@_convert:nVnN, \@@_convert:nnVN}
 % \begin{macro}[EXP]
 %   {
-%     \@@_convert_gray_gray:w
-%     \@@_convert_gray_rgb:w
-%     \@@_convert_gray_cmyk:w
-%     \@@_convert_cmyk_gray:w
-%     \@@_convert_cmyk_rgb:w
-%     \@@_convert_cmyk_cmyk:w
-%     \@@_convert_rgb_gray:w
-%     \@@_convert_rgb_rgb:w
+%     \@@_convert_gray_gray:w,
+%     \@@_convert_gray_rgb:w,
+%     \@@_convert_gray_cmyk:w,
+%     \@@_convert_cmyk_gray:w,
+%     \@@_convert_cmyk_rgb:w,
+%     \@@_convert_cmyk_cmyk:w,
+%     \@@_convert_rgb_gray:w,
+%     \@@_convert_rgb_rgb:w,
 %     \@@_convert_rgb_cmyk:w
 %   }
 %  \begin{macro}[EXP]{\@@_convert_rgb_cmyk:nnn}
@@ -1433,6 +1439,7 @@
 %
 % \begin{macro}{\color_select:n}
 % \begin{macro}{\color_select:nn}
+% \begin{macro}{\@@_select_main:Nnn}
 % \begin{macro}{\@@_select_main:Nw, \@@_select_loop:Nw}
 % \begin{macro}{\@@_select:nnN}
 % \begin{macro}{\@@_select_swap:Nnn}
@@ -1449,8 +1456,7 @@
   }
 \cs_new_protected:Npn \color_select:nn #1#2
   {
-    \@@_select_main:Nw \l_@@_current_tl
-      #1 / / \s_@@_mark #2 / / \s_@@_stop
+    \@@_select_main:Nnn \l_@@_current_tl {#1} {#2}
     \@@_finalise_current:
     \@@_select:N \l_@@_current_tl
   }
@@ -1459,6 +1465,15 @@
 %   model, we don't need most of the data: just set up and apply the backend
 %   function.
 %    \begin{macrocode}
+\cs_new_protected:Npn \@@_select_main:Nnn #1#2#3
+  {
+    \use:e
+      {
+        \exp_not:N \@@_select_main:Nw \exp_not:N #1
+          \exp_not:n {#2} / / \exp_not:N \s_@@_mark 
+          #3 / / \exp_not:N \s_@@_stop
+      }
+  }
 \cs_new_protected:Npn \@@_select_main:Nw
   #1 #2 / #3 / #4 \s_@@_mark #5 / #6 / #7 \s_@@_stop
   {
@@ -1505,6 +1520,7 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+% \end{macro}
 %
 % \subsection{Math color}
 %
@@ -1545,10 +1561,7 @@
 \cs_new_protected:Npn \color_math:nnn #1#2#3
   {
     \@@_math:nn {#3}
-      {
-        \@@_select_main:Nw \l_@@_current_tl
-          #1 / / \s_@@_mark #2 / / \s_@@_stop
-      }
+      { \@@_select_main:Nnn \l_@@_current_tl {#1} {#2} }
   }
 \cs_new_protected:Npn \@@_math:nn #1#2
   {
@@ -1720,14 +1733,12 @@
   }
 \cs_new_protected:Npn \color_fill:nn #1#2
   {
-    \@@_select_main:Nw \l_@@_current_tl
-      #1 / / \s_@@_mark #2 / / \s_@@_stop
+    \@@_select_main:Nnn \l_@@_current_tl {#1} {#2}
     \exp_after:wN \@@_draw:nnn \l_@@_current_tl { fill }
   }
 \cs_new_protected:Npn \color_stroke:nn #1#2
   {
-    \@@_select_main:Nw \l_@@_current_tl
-      #1 / / \s_@@_mark #2 / / \s_@@_stop
+    \@@_select_main:Nnn \l_@@_current_tl {#1} {#2}
     \exp_after:wN \@@_draw:nnn \l_@@_current_tl { stroke }
   }
 \cs_new_protected:Npn \@@_draw:nnn #1#2#3
@@ -1910,6 +1921,8 @@
 \prop_new:c { l_@@_named_._prop }
 \tl_new:c { l_@@_named_._tl }
 \tl_set:ce { l_@@_named_._tl } { \@@_model:N \l_@@_current_tl }
+\prop_put:cve { l_@@_named_._prop } { l_@@_named_._tl }
+  { \@@_values:N \l_@@_current_tl }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1932,8 +1945,7 @@
   }
 \cs_new_protected:Npn \color_export:nnnN #1#2#3#4
   {
-    \@@_select_main:Nw #4
-      #1 / / \s_@@_mark #2 / / \s_@@_stop
+    \@@_select_main:Nnn #4 {#1} {#2}
     \@@_export:nN {#3} #4
   }
 \cs_new_protected:Npn \@@_export:nN #1#2

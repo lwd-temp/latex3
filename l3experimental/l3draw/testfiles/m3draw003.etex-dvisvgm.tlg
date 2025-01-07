@@ -630,6 +630,34 @@ l. ...  }
 > \box...=
 \hbox(28.85275+0.0)x28.85275
 .\hbox(28.85275+0.0)x28.85275
+..\glue -66.70552
+..\hbox(0.0+0.0)x0.0, shifted 71.70552
+...\special{dvisvgm:raw <g>{?nl}}
+...\special{dvisvgm:raw <g transform="translate({?x},{?y}) scale(1,-1)">{?nl}}
+...\special{dvisvgm:raw <g stroke-width="0.4">{?nl}}
+...\special{color push gray 0}
+...\special{dvisvgm:raw <g fill-rule="nonzero">{?nl}}
+...\special{dvisvgm:raw <g stroke-linecap="butt">{?nl}}
+...\special{dvisvgm:raw <g stroke-linejoin="miter">{?nl}}
+...\special{dvisvgm:raw <g stroke-miterlimit="10">{?nl}}
+...\special{dvisvgm:raw <g stroke-dasharray="none" stroke-offset="0">{?nl}}
+...\hbox(0.0+0.0)x0.0
+....\special{dvisvgm:raw <path d="M 66.90552 71.90552h 28.45276 v 28.45276 h -28.45276 Z" style="fill:none"/>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{color pop}
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(28.85275+0.0)x28.85275
+.\hbox(28.85275+0.0)x28.85275
 ..\glue -56.70552
 ..\hbox(0.0+0.0)x0.0, shifted 56.70552
 ...\special{dvisvgm:raw <g>{?nl}}
@@ -643,6 +671,34 @@ l. ...  }
 ...\special{dvisvgm:raw <g stroke-dasharray="none" stroke-offset="0">{?nl}}
 ...\hbox(0.0+0.0)x0.0
 ....\special{dvisvgm:raw <path d="M 83.35828 85.35828 L 58.90552 85.35828 C 57.80095 85.35828 56.90552 84.46284 56.90552 83.35828 L 56.90552 58.90552 C 56.90552 57.80095 57.80095 56.90552 58.90552 56.90552 L 83.35828 56.90552 C 84.46284 56.90552 85.35828 57.80095 85.35828 58.90552 L 85.35828 83.35828 C 85.35828 84.46284 84.46284 85.35828 83.35828 85.35828 Z M 56.90552 56.90552" style="fill:none"/>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{color pop}
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(85.75827+0.0)x85.75827
+.\hbox(85.75827+0.0)x85.75827
+..\glue -56.70552
+..\hbox(0.0+0.0)x0.0, shifted 56.70552
+...\special{dvisvgm:raw <g>{?nl}}
+...\special{dvisvgm:raw <g transform="translate({?x},{?y}) scale(1,-1)">{?nl}}
+...\special{dvisvgm:raw <g stroke-width="0.4">{?nl}}
+...\special{color push gray 0}
+...\special{dvisvgm:raw <g fill-rule="nonzero">{?nl}}
+...\special{dvisvgm:raw <g stroke-linecap="butt">{?nl}}
+...\special{dvisvgm:raw <g stroke-linejoin="miter">{?nl}}
+...\special{dvisvgm:raw <g stroke-miterlimit="10">{?nl}}
+...\special{dvisvgm:raw <g stroke-dasharray="none" stroke-offset="0">{?nl}}
+...\hbox(0.0+0.0)x0.0
+....\special{dvisvgm:raw <path d="M 56.90552 56.90552h 28.45276 v 28.45276 h -28.45276 Z M 140.2638 142.2638 L 115.81104 142.2638 C 114.70647 142.2638 113.81104 141.36836 113.81104 140.2638 L 113.81104 115.81104 C 113.81104 114.70647 114.70647 113.81104 115.81104 113.81104 L 140.2638 113.81104 C 141.36836 113.81104 142.2638 114.70647 142.2638 115.81104 L 142.2638 140.2638 C 142.2638 141.36836 141.36836 142.2638 140.2638 142.2638 Z M 113.81104 113.81104" style="fill:none"/>{?nl}}
 ...\special{dvisvgm:raw </g>{?nl}}
 ...\special{dvisvgm:raw </g>{?nl}}
 ...\special{dvisvgm:raw </g>{?nl}}
@@ -787,6 +843,34 @@ l. ...  }
 ...\special{dvisvgm:raw <g stroke-dasharray="none" stroke-offset="0">{?nl}}
 ...\hbox(0.0+0.0)x0.0
 ....\special{dvisvgm:raw <path d="M 0 0 L 0 142.26378 M 28.45274 0 L 28.45274 142.26378 M 56.90549 0 L 56.90549 142.26378 M 85.35823 0 L 85.35823 142.26378 M 113.81097 0 L 113.81097 142.26378 M 142.26372 0 L 142.26372 142.26378 M 0 0 L 142.26378 0 M 0 56.9055 L 142.26378 56.9055 M 0 113.811 L 142.26378 113.811" style="fill:none"/>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{dvisvgm:raw </g>{?nl}}
+...\special{color pop}
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(142.66377+0.0)x142.66377
+.\hbox(142.66377+0.0)x142.66377
+..\glue -14.02638
+..\hbox(0.0+0.0)x0.0, shifted 14.02638
+...\special{dvisvgm:raw <g>{?nl}}
+...\special{dvisvgm:raw <g transform="translate({?x},{?y}) scale(1,-1)">{?nl}}
+...\special{dvisvgm:raw <g stroke-width="0.4">{?nl}}
+...\special{color push gray 0}
+...\special{dvisvgm:raw <g fill-rule="nonzero">{?nl}}
+...\special{dvisvgm:raw <g stroke-linecap="butt">{?nl}}
+...\special{dvisvgm:raw <g stroke-linejoin="miter">{?nl}}
+...\special{dvisvgm:raw <g stroke-miterlimit="10">{?nl}}
+...\special{dvisvgm:raw <g stroke-dasharray="none" stroke-offset="0">{?nl}}
+...\hbox(0.0+0.0)x0.0
+....\special{dvisvgm:raw <path d="M 28.45274 14.22638 L 28.45274 156.49016 M 56.90549 14.22638 L 56.90549 156.49016 M 85.35823 14.22638 L 85.35823 156.49016 M 113.81097 14.22638 L 113.81097 156.49016 M 142.26372 14.22638 L 142.26372 156.49016 M 14.22638 28.45274 L 156.49016 28.45274 M 14.22638 56.90549 L 156.49016 56.90549 M 14.22638 85.35823 L 156.49016 85.35823 M 14.22638 113.81097 L 156.49016 113.81097 M 14.22638 142.26372 L 156.49016 142.26372" style="fill:none"/>{?nl}}
 ...\special{dvisvgm:raw </g>{?nl}}
 ...\special{dvisvgm:raw </g>{?nl}}
 ...\special{dvisvgm:raw </g>{?nl}}

@@ -18,11 +18,13 @@ unpackfiles  = {"l3backend.ins"}
 -- Avoid a circular ref.
 typesetdeps = {maindir .. "/l3kernel"}
 
--- Get the .pro files in the right place
-tdslocations = {"dvips/l3backend/*.pro"}
-
 -- Load the common build code
 dofile(maindir .. "/build-config.lua")
+
+-- Get the .pro files in the right place
+if main_branch then
+  tdslocations = {"dvips/l3backend/*.pro"}
+end
 
 -- Detail how to set the version automatically
 function update_tag(file,content,tagname,tagdate)
@@ -70,11 +72,11 @@ function update_tag(file,content,tagname,tagdate)
 end
 
 uploadconfig = {
-  author      = "The LaTeX Team",
+  author      = "The LaTeX Project team",
   license     = "lppl1.3c",
   summary     = "LaTeX3 backend drivers",
   topic       = {"macro-supp","latex3","expl3"},
-  ctanPath    = "/macros/latex/contrib/l3backend",
+  ctanPath    = "/macros/latex/required/l3backend",
   repository  = "https://github.com/latex3/latex3/",
   bugtracker  = "https://github.com/latex3/latex3/issues",
   update      = true,

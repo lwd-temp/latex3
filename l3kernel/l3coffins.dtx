@@ -2,7 +2,7 @@
 %
 %% File: l3coffins.dtx
 %
-% Copyright (C) 2010-2024 The LaTeX Project
+% Copyright (C) 2010-2025 The LaTeX Project
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -43,7 +43,7 @@
 %    }^^A
 % }
 %
-% \date{Released 2024-02-20}
+% \date{Released 2024-12-25}
 %
 % \maketitle
 %
@@ -327,6 +327,14 @@
 %   in a form suitable for use in a \meta{dim expr}.
 % \end{function}
 %
+% \begin{function}[added = 2024-10-01]{\coffin_ht_plus_dp:N, \coffin_ht_plus_dp:c}
+%   \begin{syntax}
+%     \cs{coffin_ht_plus_dp:N} \meta{coffin}
+%   \end{syntax}
+%   Calculates the total vertical size (height plus depth) of the \meta{coffin}
+%   in a form suitable for use in a \meta{dim expr}.
+% \end{function}
+%
 % \begin{function}{\coffin_wd:N, \coffin_wd:c}
 %   \begin{syntax}
 %     \cs{coffin_wd:N} \meta{coffin}
@@ -375,7 +383,7 @@
 %   poles of the coffin.
 %
 %   Notice that the poles of a coffin are defined by four values:
-%   the $x$ and $y$ co-ordinates of a point that the pole
+%   the $x$ and $y$ coordinates of a point that the pole
 %   passes through and the $x$- and $y$-components of a
 %   vector denoting the direction of the pole. It is the ratio between
 %   the later, rather than the absolute values, which determines the
@@ -866,7 +874,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \coffin_set_eq:NN #1#2
   {
-    \@@_if_exist:NT #1
+    \@@_if_exist:NT #2
       {
         \box_set_eq:NN #1 #2
         \prop_set_eq:cc { coffin ~ \@@_to_value:N #1 ~ corners }
@@ -878,7 +886,7 @@
 \cs_generate_variant:Nn \coffin_set_eq:NN { c , Nc , cc }
 \cs_new_protected:Npn \coffin_gset_eq:NN #1#2
   {
-    \@@_if_exist:NT #1
+    \@@_if_exist:NT #2
       {
         \box_gset_eq:NN #1 #2
         \prop_gset_eq:cc { coffin ~ \@@_to_value:N #1 ~ corners }
@@ -897,7 +905,7 @@
 %   Special coffins: these cannot be set up earlier as they need
 %   \cs{coffin_new:N}. The empty coffin is set as a box as the full
 %   coffin-setting system needs some material which is not yet available.
-%   The empty coffin is creted entirely by hand: not everything is in place
+%   The empty coffin is created entirely by hand: not everything is in place
 %   yet.
 %    \begin{macrocode}
 \coffin_new:N \c_empty_coffin
@@ -924,7 +932,8 @@
 % \begin{macro}
 %   {
 %     \coffin_dp:N, \coffin_dp:c, \coffin_ht:N, \coffin_ht:c,
-%     \coffin_wd:N, \coffin_wd:c
+%     \coffin_ht_plus_dp:N, \coffin_ht_plus_dp:c,
+%     \coffin_wd:N, \coffin_wd:c, 
 %   }
 %   Coffins are just boxes when it comes to measurement. However, semantically
 %   a separate set of functions are required.
@@ -933,6 +942,8 @@
 \cs_new_eq:NN \coffin_dp:c \box_dp:c
 \cs_new_eq:NN \coffin_ht:N \box_ht:N
 \cs_new_eq:NN \coffin_ht:c \box_ht:c
+\cs_new_eq:NN \coffin_ht_plus_dp:N \box_ht_plus_dp:N
+\cs_new_eq:NN \coffin_ht_plus_dp:c \box_ht_plus_dp:c
 \cs_new_eq:NN \coffin_wd:N \box_wd:N
 \cs_new_eq:NN \coffin_wd:c \box_wd:c
 %    \end{macrocode}
@@ -1197,7 +1208,7 @@
 %   ($a$, $b$, $c$, $d$) and
 %   ($a'$, $b'$, $c'$, $d'$). These are arguments
 %   $1$--$4$ and $5$--$8$, respectively. In both
-%   cases $a$ and  $b$ are the co-ordinates of a point on the
+%   cases $a$ and  $b$ are the coordinates of a point on the
 %   pole and $c$ and $d$ define the direction of the pole. Finding
 %   the intersection depends on the directions of the poles, which are
 %   given by $d / c$ and $d' / c'$. However, if one of the poles
@@ -1302,7 +1313,7 @@
 %     y = s ( x - a ) + b
 %   \]
 %    \begin{macrocode}
-\cs_set_protected:Npn \@@_calculate_intersection:nnnnnn #1#2#3#4#5#6
+\cs_new_protected:Npn \@@_calculate_intersection:nnnnnn #1#2#3#4#5#6
   {
     \fp_compare:nNnTF {#1} = {#2}
       { \bool_set_true:N \l_@@_error_bool }
@@ -1541,7 +1552,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_rotate_pole:Nnnnnn}
-%   Rotating a single pole simply means shifting the co-ordinate of
+%   Rotating a single pole simply means shifting the coordinate of
 %   the pole and its direction. The rotation here is about the bottom-left
 %   corner of the coffin.
 %    \begin{macrocode}

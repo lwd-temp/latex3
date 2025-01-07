@@ -2,7 +2,7 @@
 %
 %% File: l3kernel-functions.dtx
 %
-% Copyright (C) 2018-2024 The LaTeX Project
+% Copyright (C) 2018-2025 The LaTeX Project
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -43,7 +43,7 @@
 %    }^^A
 % }
 %
-% \date{Released 2024-02-20}
+% \date{Released 2024-12-25}
 %
 % \maketitle
 %
@@ -333,7 +333,21 @@
 %   higher-level
 %   functions which have already fully expanded the \meta{file name} and which
 %   need to perform multiple open or close operations. See for example the
-%   implementation of \cs{file_get_full_name:nN},
+%   implementation of \cs{ior_shell_open:Nn}.
+% \end{function}
+%
+% \begin{function}{\__kernel_iow_open:Nn, \__kernel_iow_open:No}
+%   \begin{syntax}
+%     \cs{__kernel_iow_open:Nn} \meta{stream} \Arg{file name}
+%   \end{syntax}
+%   This function has identical syntax to the public version. However,
+%   is does not take precautions against active characters in the
+%   \meta{file name}, and it does not attempt to add a \meta{path} to
+%   the \meta{file name}: it is therefore intended to be used by
+%   higher-level
+%   functions which have already fully expanded the \meta{file name} and which
+%   need to perform multiple open or close operations. See for example the
+%   implementation of \cs{iow_shell_open:Nn}.
 % \end{function}
 %
 % \begin{function}{\__kernel_iow_with:Nnn}
@@ -365,6 +379,17 @@
 %   \Arg{expression} (with \texttt{f}-expansion).  For instance, if the
 %   \meta{function} is \cs{int_eval:n} and the \meta{expression} is
 %   |1+2| then this logs |> 1+2=3.|
+% \end{function}
+%
+% \begin{function}[EXP]{\__kernel_pdf_object_id:n, \__kernel_pdf_object_id_indexed:nn}
+%   \begin{syntax}
+%     \cs{__kernel_pdf_object_id:n} \Arg{object}
+%     \cs{__kernel_pdf_object_id_indexed:nn} \Arg{class} \Arg{number}
+%   \end{syntax}
+%   Expands to the ID of \meta{object} (or object of \meta{number} within
+%   the \meta{class}), in for example page resource allocation. Depending on
+%   the backend, the result may be the same as
+%   \cs{pdf_object_id:n}/\cs{pdf_object_id_indexed:nn}.
 % \end{function}
 %
 % \begin{variable}{\g__kernel_prg_map_int}

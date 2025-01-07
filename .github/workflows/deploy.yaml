@@ -10,7 +10,7 @@ jobs:
   # The l3build job contains the actual work. This is mostly the same as in main.yaml
   # and should stay synchronized. Sadly it doesn't seem possible to reuse the instructions at the moment.
   release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: Build release
     environment: Release
     steps:
@@ -42,11 +42,12 @@ jobs:
         with:
           artifacts: "*.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: ${{ endsWith(github.ref, '-dev') }}
       # While the normal notification job only informs about failed runs, we additionally want to notify about successful releases.
       - name: Send mail
         # The explicit commit hash ensures that this can't be used by dawidd6 as a
         # backdoor to execute arbitrary code during our runs.
-        uses: dawidd6/action-send-mail@4226df7daafa6fc901a43789c49bf7ab309066e7 # v3.11.0
+        uses: dawidd6/action-send-mail@611879133a9569642c41be66f4a323286e9b8a3b # v4
         with:
           # Currently using my (Marcel's) mail server for sending mails.
           server_address: typesetting.eu
@@ -69,7 +70,7 @@ jobs:
             More information can be found at
             ${{steps.release.outputs.html_url}}
       - name: Send failure notification
-        uses: dawidd6/action-send-mail@4226df7daafa6fc901a43789c49bf7ab309066e7 # v3.11.0
+        uses: dawidd6/action-send-mail@611879133a9569642c41be66f4a323286e9b8a3b # v4
         if: ${{ failure() }}
         with:
           server_address: typesetting.eu

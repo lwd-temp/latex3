@@ -2,7 +2,7 @@
 %
 %% File: l3str-convert.dtx
 %
-% Copyright (C) 2013-2024 The LaTeX Project
+% Copyright (C) 2013-2025 The LaTeX Project
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -44,7 +44,7 @@
 %    }^^A
 % }
 %
-% \date{Released 2024-02-20}
+% \date{Released 2024-12-25}
 %
 % \maketitle
 %
@@ -139,10 +139,10 @@
 %
 % \begin{function}{\str_set_convert:Nnnn, \str_gset_convert:Nnnn}
 %   \begin{syntax}
-%     \cs{str_set_convert:Nnnn} \meta{str~var} \Arg{string} \Arg{name~1} \Arg{name~2}
+%     \cs{str_set_convert:Nnnn} \meta{str~var} \Arg{string} \Arg{name_1} \Arg{name_2}
 %   \end{syntax}
 %   This function converts the \meta{string} from the encoding given by
-%   \meta{name~1} to the encoding given by \meta{name~2}, and stores the
+%   \meta{name_1} to the encoding given by \meta{name_2}, and stores the
 %   result in the \meta{str~var}.  Each \meta{name} can have the form
 %   \meta{encoding} or \meta{encoding}\texttt{/}\meta{escaping}, where
 %   the possible values of \meta{encoding} and \meta{escaping} are given
@@ -177,14 +177,14 @@
 %
 % \begin{function}[TF]{\str_set_convert:Nnnn, \str_gset_convert:Nnnn}
 %   \begin{syntax}
-%     \cs{str_set_convert:NnnnTF} \meta{str~var} \Arg{string} \Arg{name~1} \Arg{name~2} \Arg{true code} \Arg{false code}
+%     \cs{str_set_convert:NnnnTF} \meta{str~var} \Arg{string} \Arg{name_1} \Arg{name_2} \Arg{true code} \Arg{false code}
 %   \end{syntax}
 %   As \cs{str_set_convert:Nnnn}, converts the \meta{string} from the
-%   encoding given by \meta{name~1} to the encoding given by
-%   \meta{name~2}, and assigns the result to \meta{str~var}. Contrarily
+%   encoding given by \meta{name_1} to the encoding given by
+%   \meta{name_2}, and assigns the result to \meta{str~var}. Contrarily
 %   to \cs{str_set_convert:Nnnn}, the conditional variant does not raise
 %   errors in case the \meta{string} is not valid according to the
-%   \meta{name~1} encoding, or cannot be expressed in the \meta{name~2}
+%   \meta{name_1} encoding, or cannot be expressed in the \meta{name_2}
 %   encoding. Instead, the \meta{false code} is performed.
 % \end{function}
 %
@@ -195,7 +195,7 @@
 %
 % \begin{function}[EXP]{\str_convert_pdfname:n}
 %   \begin{syntax}
-%     \cs{str_convert_pdfname:n} \meta{string}
+%     \cs{str_convert_pdfname:n} \Arg{string}
 %   \end{syntax}
 %   As \cs{str_set_convert:Nnnn}, converts the \meta{string} on a byte-by-byte
 %   basis with non-ASCII codepoints  escaped using hashes.
@@ -2068,7 +2068,7 @@
 %
 % \subsubsection{\textsc{utf-16} support}
 %
-% The definitions are done in a category code regime where the bytes
+% The definitions are done in a category code régime where the bytes
 % $254$ and $255$ used by the byte order mark have catcode~$12$.
 %    \begin{macrocode}
 \group_begin:
@@ -2393,7 +2393,7 @@
 %
 % \subsubsection{\textsc{utf-32} support}
 %
-% The definitions are done in a category code regime where the bytes
+% The definitions are done in a category code régime where the bytes
 % $0$, $254$ and $255$ used by the byte order mark have catcode
 % \enquote{other}.
 %    \begin{macrocode}
@@ -2624,9 +2624,7 @@
     \exp_args:Ne \tl_to_str:n
       { \str_map_function:nN {#1} \@@_convert_pdfname:n }
   }
-\bool_lazy_or:nnTF
-  { \sys_if_engine_luatex_p: }
-  { \sys_if_engine_xetex_p: }
+\sys_if_engine_opentype:TF
   {
     \cs_new:Npn \@@_convert_pdfname:n #1
       {

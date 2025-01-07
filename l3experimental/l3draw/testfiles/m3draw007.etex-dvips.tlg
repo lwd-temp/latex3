@@ -9,6 +9,7 @@ TEST 1: stroke
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -46,6 +47,7 @@ TEST 2: fill
 ..\glue 0.0
 ..\hbox(0.0+0.0)x0.0
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -80,6 +82,7 @@ TEST 3: draw
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -117,6 +120,7 @@ TEST 4: fill,stroke
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -155,6 +159,7 @@ TEST 5: clip;fill
 ..\glue 0.0
 ..\hbox(0.0+0.0)x0.0
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -179,6 +184,44 @@ TEST 5: clip;fill
 ....\special{ps::fill}
 ....\special{ps::newpath}
 ....\special{color pop}
+...\special{ps::@endspecial}
+...\special{ps::[end]}
+...\special{color pop}
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+============================================================
+============================================================
+TEST 6: Replace bb
+============================================================
+> \box...=
+\hbox(28.85275+0.0)x28.85275
+.\hbox(28.85275+0.0)x28.85275
+..\glue 14.42638
+..\hbox(0.0+0.0)x0.0, shifted -14.42638
+...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
+...\special{ps::@beginspecial}
+...\special{ps::0.39851 setlinewidth}
+...\special{color push gray 0}
+...\special{ps:SDict begin /color.sc {} def end}
+...\special{ps::0 setlinecap}
+...\special{ps::0 setlinejoin}
+...\special{ps::10 setmiterlimit}
+...\special{ps::[] 0 setdash}
+...\hbox(0.0+0.0)x0.0
+....\special{ps::35.43307 0 moveto}
+....\special{ps::35.43307 19.56915 19.56915 35.43307 0 35.43307 curveto}
+....\special{ps::-19.56915 35.43307 -35.43307 19.56915 -35.43307 0 curveto}
+....\special{ps::-35.43307 -19.56915 -19.56915 -35.43307 0 -35.43307 curveto}
+....\special{ps::19.56915 -35.43307 35.43307 -19.56915 35.43307 0 curveto}
+....\special{ps::closepath}
+....\special{ps::0 0 moveto}
+....\special{ps::gsave}
+....\special{ps::color.sc}
+....\special{ps::stroke}
+....\special{ps::grestore}
+....\special{ps::newpath}
 ...\special{ps::@endspecial}
 ...\special{ps::[end]}
 ...\special{color pop}

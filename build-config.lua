@@ -1,7 +1,7 @@
 -- Common settings for LaTeX3 development repo, used by l3build script
 
 checkdeps   = checkdeps   or {maindir .. "/l3backend", maindir .. "/l3kernel"}
-typesetdeps = typesetdeps or checkdeps
+typesetdeps = typesetdeps or {maindir .. "/l3packages/xparse"}
 
 checkengines    = checkengines
   or {"pdftex", "xetex", "luatex", "uptex"}
@@ -10,6 +10,19 @@ checksuppfiles  = checksuppfiles  or
     "regression-test.cfg",
     "sRGB_v4_ICC_preference.icc"
   }
+
+specialformats = specialformats or {}
+specialformats.latex =
+  {
+    ["etex-dvips"] = {binary = "etex", format = "latex"},
+    ["etex-dvisvgm"] =
+      {
+        binary = "etex",
+        format = "latex",
+        tokens = "\\ExplSyntaxOn\\sys_load_backend:n{dvisvgm}\\ExplSyntaxOff"
+      }
+  }
+
 tagfiles = tagfiles or {"*.dtx", "README.md", "CHANGELOG.md", "*.ins"}
 unpacksuppfiles = unpacksuppfiles or
   {
@@ -29,8 +42,6 @@ typesetcmds = typesetcmds or "\\AtBeginDocument{\\csname DisableImplementation\\
 
 typesetexe = "pdftex"
 typesetopts = "--fmt=pdflatex -interaction=nonstopmode"
-
-maxprintline = 9999
 
 if checksearch == nil then
   checksearch = false
@@ -59,8 +70,8 @@ function update_tag(file,content,tagname,tagdate)
   end
   if string.match(file,"%.dtx$") then
     content = string.gsub(content,
-      "\n\\ProvidesExpl" .. "(%w+ *{[^}]+} *){" .. iso .. "}",
-      "\n\\ProvidesExpl%1{" .. tagname .. "}")
+      "\n( *)\\ProvidesExpl" .. "(%w+ *{[^}]+} *){" .. iso .. "}",
+      "\n%1\\ProvidesExpl%2{" .. tagname .. "}")
     return string.gsub(content,
       "\n%% \\date{Released " .. iso .. "}\n",
       "\n%% \\date{Released " .. tagname .. "}\n")
@@ -177,4 +188,36 @@ end
 
 function docinit_hook()
   return fmt({typesetexe},typesetdir)
+end
+
+-- Allow for 'dev' release
+--
+-- See https://docs.github.com/en/actions/learn-github-actions/environment-variables
+-- for the meaning of the environment variables, but tl;dr: GITHUB_REF_TYPE says
+-- if we have a tag or a branch, GITHUB_REF_NAME has the corresponding name.
+-- If either one of them isn't set, we look at the current git HEAD.
+do
+  local gh_type = os.getenv("GITHUB_REF_TYPE")
+  local name = os.getenv("GITHUB_REF_NAME")
+  if gh_type == "tag" and name then
+    main_branch = not string.match(name,"-dev$")
+  else
+    if gh_type ~= "branch" or not name then
+      local f = io.popen("git rev-parse --abbrev-ref HEAD")
+      name = f:read("*a"):sub(1,-2)
+      assert(f:close())
+    end
+    main_branch = string.match(name,"^main")
+  end
+  if not main_branch then
+    tdsroot = "latex-dev"
+    print("Creating/installing dev-version in " .. tdsroot)
+    if bundle == "" then
+      ctanpkg = module
+    else
+      ctanpkg = bundle
+    end
+    ctanpkg = ctanpkg .. "-dev"
+    ctanzip = ctanpkg
+  end
 end

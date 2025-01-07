@@ -2,7 +2,7 @@
 %
 %% File: l3tl-analysis.dtx
 %
-% Copyright (C) 2011-2024 The LaTeX Project
+% Copyright (C) 2011-2025 The LaTeX Project
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -44,7 +44,7 @@
 %    }^^A
 % }
 %
-% \date{Released 2024-02-20}
+% \date{Released 2024-12-25}
 %
 % \maketitle
 %
@@ -1303,14 +1303,20 @@
 %   Expandable tokens (which are automatically |N|-type) can be
 %   \tn{outer} macros, hence the need for \cs{exp_after:wN} and
 %   \cs{exp_not:N} in the code above, which allows the next function to
-%   safely grab the token as an argument.  We run some code that is
-%   expanded using the primitive \cs{cs_set_nopar:Npe} rather than
-%   \cs{tl_set:Ne} to avoid grabbing it as an argument as |#1| may be
-%   \tn{outer}.  To allow~|#1| as an argument of the user's function
-%   (stored in \cs{l_@@_peek_code_tl}), we set it equal to
-%   \cs{scan_stop:}, but we do it at the last minute because |#1|
-%   may be some pretty important function such as \cs{exp_after:wN}.
-%   Then we put the user's function and the elaborate first argument
+%   safely grab the token as an argument.  To allow the
+%   possibly-\tn{outer} token~|#1| as an argument of the \meta{user's
+%   function} (which is protected and stored in \cs{l_@@_peek_code_tl}),
+%   we set it equal to a harmless macro.  This must be done at the very
+%   last minute because |#1| may be some pretty important function such
+%   as \cs{exp_after:wN}.  Using a primitive \cs{cs_set_nopar:Npe}
+%   expansion (to avoid \tn{outer} problems) we set up to run the code
+%   \tn{let} |#1| \meta{user's function} \meta{user's function} followed
+%   by arguments involving~|#1|.  Regardless of~|#1| (including the
+%   user's function itself), the user's function is run.  It always
+%   starts with \cs{group_end:}, which has not been redefined since |#1|
+%   started out as expandable, and which restores the definition of~|#1|.
+%
+%   Then we put the elaborate first argument
 %   \cs{__kernel_exp_not:w} \cs{exp_after:wN} |{| \cs{exp_not:N} |#1| |}|:
 %   indeed we cannot use \cs{exp_not:n} |{#1}| as this breaks for an
 %   \tn{outer} macro and we cannot use \cs{exp_not:N} |#1|, as
@@ -1323,29 +1329,31 @@
 %   the two cases is easy: since we have made the escape character
 %   printable, \cs{token_to_str:N} gives at least two characters for a
 %   control sequence versus a single one for an active character
-%   (possibly being a space).  Importantly, once we apply
-%   \cs{token_to_str:N} we no longer need to worry about \tn{outer}
-%   tokens.
+%   (possibly being a space, in which case the trailing brace group is
+%   taken as the first argument of \cs{@@_peek_analysis_exp_aux:Nw}).
+%   Importantly, |#1| could be an \tn{outer} token (as it is only set to
+%   \cs{scan_stop:} at the last minute) but once we apply
+%   \cs{token_to_str:N} we no longer need to worry about it.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_peek_analysis_exp:N #1
   {
     \cs_set_nopar:Npe \l_@@_peek_code_tl
       {
-        \tex_let:D \exp_not:N #1 \scan_stop:
-        \exp_not:o \l_@@_peek_code_tl
+        \tex_let:D \exp_not:N #1 \l_@@_peek_code_tl
+        \l_@@_peek_code_tl
         {
           \exp_not:n { \__kernel_exp_not:w \exp_after:wN }
             { \exp_not:N \exp_not:N \exp_not:N #1 }
         }
         \exp_after:wN \@@_peek_analysis_exp_aux:Nw
-        \token_to_str:N #1 \prg_do_nothing: \s_@@
+        \token_to_str:N #1 { } \s_@@
       }
     \l_@@_peek_code_tl
   }
 \cs_new:Npe \@@_peek_analysis_exp_aux:Nw #1#2 \s_@@
   {
-    \exp_not:N \if:w \scan_stop: #2 \scan_stop:
-      { \exp_not:N \int_value:w `#1 } \token_to_str:N D
+    \exp_not:N \if_meaning:w \scan_stop: #2 \scan_stop:
+      { \exp_not:N \int_value:w `#1 ~ } \token_to_str:N D
     \exp_not:N \else:
       { -1 } 0
     \exp_not:N \fi:

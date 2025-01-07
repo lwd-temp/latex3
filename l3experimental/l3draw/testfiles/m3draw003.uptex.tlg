@@ -9,6 +9,7 @@ TEST 1: \draw_path_moveto:n
 ..\glue -9.8
 ..\hbox(0.0+0.0)x0.0, shifted 9.8
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -40,6 +41,7 @@ TEST 2: \draw_path_lineto:n
 ..\glue -9.8
 ..\hbox(0.0+0.0)x0.0, shifted 9.8
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -71,6 +73,7 @@ TEST 3: \draw_path_curveto:nnn
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted 28.25276
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -102,6 +105,7 @@ TEST 4: \draw_path_close:
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -137,6 +141,7 @@ TEST 5: \draw_path_curveto:nnn
 ..\glue -18.76851
 ..\hbox(0.0+0.0)x0.0, shifted 19.10184
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -168,6 +173,7 @@ TEST 6: \draw_path_arc:nnn (n)
 ..\glue 57.10551
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -196,6 +202,7 @@ l. ...  }
 ..\glue 114.01103
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -225,6 +232,7 @@ l. ...  }
 ..\glue 114.01103
 ..\hbox(0.0+0.0)x0.0, shifted -36.77815
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -255,6 +263,7 @@ l. ...  }
 ..\glue 114.01103
 ..\hbox(0.0+0.0)x0.0, shifted -57.10551
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -286,6 +295,7 @@ l. ...  }
 ..\glue 57.10551
 ..\hbox(0.0+0.0)x0.0, shifted -57.10551
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -314,6 +324,7 @@ l. ...  }
 ..\glue 114.01103
 ..\hbox(0.0+0.0)x0.0, shifted -57.10551
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -343,6 +354,7 @@ l. ...  }
 ..\glue 114.01103
 ..\hbox(0.0+0.0)x0.0, shifted -57.10551
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -373,6 +385,7 @@ l. ...  }
 ..\glue 114.01103
 ..\hbox(0.0+0.0)x0.0, shifted -57.10551
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -404,6 +417,7 @@ l. ...  }
 ..\glue 28.65276
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -436,6 +450,7 @@ TEST 7: \draw_path_arc_axes:nnnn
 ..\glue 85.55827
 ..\hbox(0.0+0.0)x0.0, shifted 88.13358
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -463,6 +478,7 @@ l. ...  }
 ..\glue 142.46379
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -496,6 +512,7 @@ TEST 8: \draw_path_ellipse:nnn
 ..\glue 1.75229
 ..\hbox(0.0+0.0)x0.0, shifted -1.75229
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -529,6 +546,7 @@ l. ...  }
 ..\glue 14.42638
 ..\hbox(0.0+0.0)x0.0, shifted -28.65276
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -566,6 +584,7 @@ TEST 9: \draw_path_circle:nn
 ..\glue 84.55826
 ..\hbox(0.0+0.0)x0.0, shifted -84.55826
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -603,6 +622,7 @@ TEST 10: \draw_path_rectangle:nn
 ..\glue -56.70552
 ..\hbox(0.0+0.0)x0.0, shifted 56.70552
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -630,6 +650,7 @@ l. ...  }
 ..\glue -113.61104
 ..\hbox(0.0+0.0)x0.0, shifted 56.70552
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -659,9 +680,38 @@ l. ...  }
 > \box...=
 \hbox(28.85275+0.0)x28.85275
 .\hbox(28.85275+0.0)x28.85275
+..\glue -66.70552
+..\hbox(0.0+0.0)x0.0, shifted 71.70552
+...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
+...\special{ps::@beginspecial}
+...\special{ps::0.39851 setlinewidth}
+...\special{color push gray 0}
+...\special{ps:SDict begin /color.sc {} def end}
+...\special{ps::0 setlinecap}
+...\special{ps::0 setlinejoin}
+...\special{ps::10 setmiterlimit}
+...\special{ps::[] 0 setdash}
+...\hbox(0.0+0.0)x0.0
+....\special{ps::28.34647 28.34647 66.65556 71.63689 moveto dup 0 rlineto exch 0 exch rlineto neg 0 rlineto closepath}
+....\special{ps::gsave}
+....\special{ps::color.sc}
+....\special{ps::stroke}
+....\special{ps::grestore}
+....\special{ps::newpath}
+...\special{ps::@endspecial}
+...\special{ps::[end]}
+...\special{color pop}
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(28.85275+0.0)x28.85275
+.\hbox(28.85275+0.0)x28.85275
 ..\glue -56.70552
 ..\hbox(0.0+0.0)x0.0, shifted 56.70552
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -694,11 +744,51 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
+\hbox(85.75827+0.0)x85.75827
+.\hbox(85.75827+0.0)x85.75827
+..\glue -56.70552
+..\hbox(0.0+0.0)x0.0, shifted 56.70552
+...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
+...\special{ps::@beginspecial}
+...\special{ps::0.39851 setlinewidth}
+...\special{color push gray 0}
+...\special{ps:SDict begin /color.sc {} def end}
+...\special{ps::0 setlinecap}
+...\special{ps::0 setlinejoin}
+...\special{ps::10 setmiterlimit}
+...\special{ps::[] 0 setdash}
+...\hbox(0.0+0.0)x0.0
+....\special{ps::28.34647 28.34647 56.69293 56.69293 moveto dup 0 rlineto exch 0 exch rlineto neg 0 rlineto closepath}
+....\special{ps::139.73978 141.7323 moveto}
+....\special{ps::115.37837 141.7323 lineto}
+....\special{ps::114.27794 141.7323 113.38585 140.84023 113.38585 139.73978 curveto}
+....\special{ps::113.38585 115.37837 lineto}
+....\special{ps::113.38585 114.27794 114.27794 113.38585 115.37837 113.38585 curveto}
+....\special{ps::139.73978 113.38585 lineto}
+....\special{ps::140.84023 113.38585 141.7323 114.27794 141.7323 115.37837 curveto}
+....\special{ps::141.7323 139.73978 lineto}
+....\special{ps::141.7323 140.84023 140.84023 141.7323 139.73978 141.7323 curveto}
+....\special{ps::closepath}
+....\special{ps::113.38585 113.38585 moveto}
+....\special{ps::gsave}
+....\special{ps::color.sc}
+....\special{ps::stroke}
+....\special{ps::grestore}
+....\special{ps::newpath}
+...\special{ps::@endspecial}
+...\special{ps::[end]}
+...\special{color pop}
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
 \hbox(28.85275+0.0)x28.85275
 .\hbox(28.85275+0.0)x28.85275
 ..\glue -56.70552
 ..\hbox(0.0+0.0)x0.0, shifted 56.70552
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -730,6 +820,7 @@ TEST 11: \draw_path_grid:nn
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -780,6 +871,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -830,6 +922,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -880,6 +973,7 @@ l. ...  }
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted -0.2
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -918,6 +1012,53 @@ l. ...  }
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
+> \box...=
+\hbox(142.66377+0.0)x142.66377
+.\hbox(142.66377+0.0)x142.66377
+..\glue -14.02638
+..\hbox(0.0+0.0)x0.0, shifted 14.02638
+...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
+...\special{ps::@beginspecial}
+...\special{ps::0.39851 setlinewidth}
+...\special{color push gray 0}
+...\special{ps:SDict begin /color.sc {} def end}
+...\special{ps::0 setlinecap}
+...\special{ps::0 setlinejoin}
+...\special{ps::10 setmiterlimit}
+...\special{ps::[] 0 setdash}
+...\hbox(0.0+0.0)x0.0
+....\special{ps::28.34645 14.17323 moveto}
+....\special{ps::28.34645 155.90552 lineto}
+....\special{ps::56.6929 14.17323 moveto}
+....\special{ps::56.6929 155.90552 lineto}
+....\special{ps::85.03934 14.17323 moveto}
+....\special{ps::85.03934 155.90552 lineto}
+....\special{ps::113.38579 14.17323 moveto}
+....\special{ps::113.38579 155.90552 lineto}
+....\special{ps::141.73222 14.17323 moveto}
+....\special{ps::141.73222 155.90552 lineto}
+....\special{ps::14.17323 28.34645 moveto}
+....\special{ps::155.90552 28.34645 lineto}
+....\special{ps::14.17323 56.6929 moveto}
+....\special{ps::155.90552 56.6929 lineto}
+....\special{ps::14.17323 85.03934 moveto}
+....\special{ps::155.90552 85.03934 lineto}
+....\special{ps::14.17323 113.38579 moveto}
+....\special{ps::155.90552 113.38579 lineto}
+....\special{ps::14.17323 141.73222 moveto}
+....\special{ps::155.90552 141.73222 lineto}
+....\special{ps::gsave}
+....\special{ps::color.sc}
+....\special{ps::stroke}
+....\special{ps::grestore}
+....\special{ps::newpath}
+...\special{ps::@endspecial}
+...\special{ps::[end]}
+...\special{color pop}
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
 ============================================================
 ============================================================
 TEST 12: \draw_path_canvas_moveto:n 
@@ -928,6 +1069,7 @@ TEST 12: \draw_path_canvas_moveto:n
 ..\glue -9.8
 ..\hbox(0.0+0.0)x0.0, shifted 9.8
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -960,6 +1102,7 @@ TEST 13: \draw_path_canvas_lineto:n
 ..\glue -9.8
 ..\hbox(0.0+0.0)x0.0, shifted 9.8
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}
@@ -992,6 +1135,7 @@ TEST 14: \draw_path_canvas_curveto:nnn
 ..\glue 0.2
 ..\hbox(0.0+0.0)x0.0, shifted 28.25276
 ...\special{ps::[begin]}
+...\special{ps::/draw.x currentpoint /draw.y exch def def}
 ...\special{ps::@beginspecial}
 ...\special{ps::0.39851 setlinewidth}
 ...\special{color push gray 0}

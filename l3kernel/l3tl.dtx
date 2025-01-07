@@ -2,7 +2,7 @@
 %
 %% File: l3tl.dtx
 %
-% Copyright (C) 1990-2024 The LaTeX Project
+% Copyright (C) 1990-2025 The LaTeX Project
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -43,7 +43,7 @@
 %    }^^A
 % }
 %
-% \date{Released 2024-02-20}
+% \date{Released 2024-12-25}
 %
 % \maketitle
 %
@@ -55,7 +55,7 @@
 % \begin{verbatim}
 %   \foo:n { a collection of \tokens }
 % \end{verbatim}
-% or may be stored in a so-called \enquote{token list variable}, which
+% or may be stored in a so-called \enquote{tl~var} (\meta{tl~var}), which
 % have the suffix \texttt{tl}: a token list variable can also be used as
 % the argument to a function, for example
 % \begin{verbatim}
@@ -99,8 +99,8 @@
 %
 % \begin{function}
 %   {
-%     \tl_const:Nn, \tl_const:Ne,
-%     \tl_const:cn, \tl_const:ce
+%     \tl_const:Nn, \tl_const:NV, \tl_const:Ne,
+%     \tl_const:cn, \tl_const:cV, \tl_const:ce
 %   }
 %   \begin{syntax}
 %     \cs{tl_const:Nn} \meta{tl~var} \Arg{tokens}
@@ -333,8 +333,8 @@
 %   Tests if the \meta{token list} and the special \cs{c_novalue_tl} marker
 %   contain the same list of tokens, both in respect of character codes and
 %   category codes. This means that
-%   \cs{exp_args:No} \cs{tl_if_novalue:nTF} \{ \cs{c_novalue_tl} \} is 
-%   logically \texttt{true} but \cs{tl_if_novalue:nTF} \{  \cs{c_novalue_tl} \}
+%   \cs{exp_args:No} \cs{tl_if_novalue:nTF} \texttt\{ \cs{c_novalue_tl} \texttt\} is 
+%   logically \texttt{true} but \cs{tl_if_novalue:nTF} \texttt\{ \cs{c_novalue_tl} \texttt\}
 %   is logically \texttt{false}.
 %   This function is intended to allow construction
 %   of flexible document interface structures in which missing optional
@@ -374,6 +374,28 @@
 %   Tests if the token list consists of exactly one token, \emph{i.e.}~is
 %   either a single space character or a single normal token.
 %   Token groups (|{|\ldots|}|) are not single tokens.
+% \end{function}
+%
+% \begin{function}[TF, added = 2024-12-08]
+%   {
+%     \tl_if_regex_match:nn, \tl_if_regex_match:Vn,
+%     \tl_if_regex_match:nN, \tl_if_regex_match:VN,
+%   }
+%   \begin{syntax}
+%     \cs{tl_if_regex_match:nnTF} \Arg{token list} \Arg{regex} \Arg{true code} \Arg{false code}
+%     \cs{tl_if_regex_match:nNTF} \Arg{token list} \meta{regex~var} \Arg{true code} \Arg{false code}
+%   \end{syntax}
+%   Tests whether the \meta{regular expression} matches any part
+%   of the \meta{token list}. For instance,
+%   \begin{verbatim}
+%     \tl_if_regex_match:nnTF { abecdcx } { b [cde]* } { TRUE } { FALSE }
+%     \tl_if_regex_match:nnTF { example } { [b-dq-w] } { TRUE } { FALSE }
+%   \end{verbatim}
+%   leaves \texttt{TRUE} then \texttt{FALSE} in the input stream.
+%   Theses are alternative names for \cs{regex_match:nnTF} and friends,
+%   with arguments re-ordered for \meta{token list} testing;
+%   see \pkg{l3regex} chapter for more details of the \meta{regex}
+%   format.
 % \end{function}
 %
 % \subsection{Testing the first token}
@@ -994,7 +1016,6 @@
 %   \end{syntax}
 %   Selects a pseudo-random item of the \meta{token list}.  If the
 %   \meta{token list} is blank, the result is empty.
-%   This is not available in older versions of \XeTeX{}.
 %   \begin{texnote}
 %     The result is returned within the \tn{unexpanded}
 %     primitive (\cs{exp_not:n}), which means that the \meta{item}
@@ -1111,7 +1132,7 @@
 %
 % Within token lists, replacement takes place at the top level: there is
 % no recursion into brace groups (more precisely, within a group defined by
-% a categroy code $1$/$2$ pair).
+% a category code $1$/$2$ pair).
 %
 % \begin{function}[updated = 2011-08-11]
 %   {
@@ -1157,6 +1178,51 @@
 %   operates from left to right, the pattern \meta{old tokens}
 %   may remain after the replacement (see \cs{tl_remove_all:Nn}
 %   for an example).
+% \end{function}
+%
+% \begin{function}[added = 2024-12-08]
+%   {
+%     \tl_regex_replace_once:Nnn, \tl_regex_replace_once:cnn,
+%     \tl_regex_replace_once:NNn, \tl_regex_replace_once:cNn,
+%     \tl_regex_greplace_once:Nnn, \tl_regex_greplace_once:cnn,
+%     \tl_regex_greplace_once:NNn, \tl_regex_greplace_once:cNn
+%   }
+%   \begin{syntax}
+%     \cs{tl_regex_replace_once:Nnn} \meta{tl~var} \Arg{regex} \Arg{replacement}
+%     \cs{tl_regex_replace_once:NNn} \meta{tl~var} \meta{regex~var} \Arg{replacement}
+%   \end{syntax}
+%   Searches for the \meta{regular expression} in the contents of the
+%   \meta{tl~var} and replaces the first match with the
+%   \meta{replacement}. In the \meta{replacement},
+%   |\0| represents the full match, |\1| represent the contents of the
+%   first capturing group, |\2| of the second, \emph{etc.}
+%   Theses are alternative names for \cs{regex_replace_once:nnN} and friends,
+%   with arguments re-ordered for \meta{tl~var} setting;
+%   See \pkg{l3regex} chapter for more details of the \meta{regex}
+%   format.
+% \end{function}
+%
+% \begin{function}[added = 2024-12-08]
+%   {
+%     \tl_regex_replace_all:Nnn, \tl_regex_replace_all:cnn,
+%     \tl_regex_replace_all:NNn, \tl_regex_replace_all:cNn,
+%     \tl_regex_greplace_all:Nnn, \tl_regex_greplace_all:cnn,
+%     \tl_regex_greplace_all:NNn, \tl_regex_greplace_all:cNn
+%   }
+%   \begin{syntax}
+%     \cs{tl_regex_replace_all:Nnn} \meta{tl~var} \Arg{regex} \Arg{replacement}
+%     \cs{tl_regex_replace_all:NNn} \meta{tl~var} \meta{regex~var} \Arg{replacement}
+%   \end{syntax}
+%   Replaces all occurrences of the \meta{regular expression} in the
+%   contents of the \meta{tl~var}
+%   by the \meta{replacement}, where |\0| represents
+%   the full match, |\1| represent the contents of the first capturing
+%   group, |\2| of the second, \emph{etc.} Every match is treated
+%   independently, and matches cannot overlap.
+%   Theses are alternative names for \cs{regex_replace_all:nnN} and friends,
+%   with arguments re-ordered for \meta{tl~var} setting;
+%   see \pkg{l3regex} chapter for more details of the \meta{regex}
+%   format.
 % \end{function}
 %
 % \begin{function}[updated = 2011-08-11]
@@ -1278,7 +1344,7 @@
 %     read from a file.
 %
 %     Contrarily to the \tn{scantokens} \eTeX{} primitive, \cs{tl_rescan:nn}
-%     tokenizes the whole string in the same category code regime rather
+%     tokenizes the whole string in the same category code régime rather
 %     than one token at a time, so that directives such as \tn{verb}
 %     that rely on changing category codes will not function properly.
 %   \end{texnote}
@@ -1370,8 +1436,8 @@
 %
 % \begin{macro}
 %   {
-%     \tl_const:Nn, \tl_const:Ne, \tl_const:Nx,
-%     \tl_const:cn, \tl_const:ce, \tl_const:cx
+%     \tl_const:Nn, \tl_const:NV, \tl_const:Ne, \tl_const:Nx,
+%     \tl_const:cn, \tl_const:cV, \tl_const:ce, \tl_const:cx
 %   }
 %   Constants are also easy to generate. They use \cs{cs_gset_nopar:Npe} instead
 %   of \cs{__kernel_tl_gset:Nx} so that the correct scope checking for |c|,
@@ -1385,7 +1451,7 @@
     \__kernel_chk_if_free_cs:N #1
     \cs_gset_nopar:Npe #1 { \__kernel_exp_not:w {#2} }
   }
-\cs_generate_variant:Nn \tl_const:Nn { Ne , c , ce }
+\cs_generate_variant:Nn \tl_const:Nn { NV , Ne , c , cV , ce }
 \cs_generate_variant:Nn \tl_const:Nn { Nx , cx }
 %    \end{macrocode}
 % \end{macro}
@@ -2250,6 +2316,57 @@
 %
 % \begin{macro}
 %   {
+%     \tl_regex_replace_once:Nnn, \tl_regex_replace_once:cnn,
+%     \tl_regex_replace_once:NNn, \tl_regex_replace_once:cNn,
+%     \tl_regex_greplace_once:Nnn, \tl_regex_greplace_once:cnn,
+%     \tl_regex_greplace_once:NNn, \tl_regex_greplace_once:cNn
+%   }
+% \begin{macro}
+%   {
+%     \tl_regex_replace_all:Nnn, \tl_regex_replace_all:cnn,
+%     \tl_regex_replace_all:NNn, \tl_regex_replace_all:cNn,
+%     \tl_regex_greplace_all:Nnn, \tl_regex_greplace_all:cnn,
+%     \tl_regex_greplace_all:NNn, \tl_regex_greplace_all:cNn
+%   }
+%  Wrappers.
+%    \begin{macrocode}
+\cs_new_protected:Npn \tl_regex_replace_once:Nnn #1#2#3
+  { \regex_replace_once:nnN {#2} {#3} #1 }
+\cs_generate_variant:Nn \tl_regex_replace_once:Nnn { c }
+\cs_new_protected:Npn \tl_regex_replace_once:NNn #1#2#3
+  { \regex_replace_once:NnN #2 {#3} #1 }
+\cs_generate_variant:Nn \tl_regex_replace_once:NNn { c }
+\cs_new_protected:Npn \tl_regex_replace_all:Nnn #1#2#3
+  { \regex_replace_all:nnN {#2} {#3} #1 }
+\cs_generate_variant:Nn \tl_regex_replace_all:Nnn { c }
+\cs_new_protected:Npn \tl_regex_replace_all:NNn #1#2#3
+  { \regex_replace_all:NnN #2 {#3} #1 }
+\cs_generate_variant:Nn \tl_regex_replace_all:NNn { c }
+\group_begin:
+  \cs_set_protected:Npn \@@_tmp:w #1#2#3
+    {
+      \cs_new_protected:cpe { tl_regex_greplace_ #1 :N #2 n } ##1##2##3
+        {
+          \group_begin:
+            \tl_set_eq:NN \exp_not:N \l_@@_internal_a_tl ##1
+            \exp_not:c { regex_replace_ #1 :Nn #2 }
+              #3 {##2} {##3} \exp_not:N \l_@@_internal_a_tl
+            \tl_gset_eq:NN ##1 \exp_not:N \l_@@_internal_a_tl
+          \group_end:
+        }
+      \cs_generate_variant:cn { tl_regex_greplace_ #1 :N #2 n } { c }
+    }
+  \@@_tmp:w { once } n { }
+  \@@_tmp:w { once } N \use:n
+  \@@_tmp:w { all } n { }
+  \@@_tmp:w { all } N \use:n
+\group_end:
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}
+%   {
 %     \tl_remove_once:Nn, \tl_remove_once:NV, \tl_remove_once:Ne,
 %     \tl_remove_once:cn, \tl_remove_once:cV, \tl_remove_once:ce
 %   }
@@ -2612,6 +2729,29 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}
+%   {
+%     \tl_if_regex_match:nn, \tl_if_regex_match:Vn,
+%     \tl_if_regex_match:nN, \tl_if_regex_match:VN,
+%   }
+%    \begin{macrocode}
+\prg_new_protected_conditional:Npnn \tl_if_regex_match:nn #1#2 { TF , T , F }
+  {
+    \regex_match:nnTF {#2} {#1}
+      \prg_return_true: \prg_return_false:
+  }
+\prg_generate_conditional_variant:Nnn \tl_if_regex_match:nn
+  { V } { TF , T , F }
+\prg_new_protected_conditional:Npnn \tl_if_regex_match:nN #1#2 { TF , T , F }
+  {
+    \regex_match:nNTF {#2} #1
+      \prg_return_true: \prg_return_false:
+  }
+\prg_generate_conditional_variant:Nnn \tl_if_regex_match:nN
+  { V } { TF , T , F }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsection{Mapping over token lists}
 %
 % \begin{macro}
@@ -2921,7 +3061,7 @@
 %   }
 % \begin{macro}{\@@_trim_mark:}
 %   Trimming spaces from around the input is done using delimited
-%   arguments and quarks, and to get spaces at odd places in the
+%   arguments and \cs{@@_trim_mark:}, and to get spaces at odd places in the
 %   definitions, we nest those in \cs{@@_tmp:w}, which then receives
 %   a single space as its argument: |#1| is \verb*+ +.
 %   Removing leading spaces is done with \cs{@@_trim_spaces_auxi:w},
@@ -3339,7 +3479,7 @@
 %   }
 % \begin{macro}[EXP]{\@@_use_none_delimit_by_q_act_stop:w}
 %   To help control the expansion, \cs{@@_act:NNNn} should always
-%   be preceeded by \cs{exp:w} and ends by producing \cs{exp_end:}
+%   be preceded by \cs{exp:w} and ends by producing \cs{exp_end:}
 %   once the result has been obtained. This way no internal token of it can be
 %   accidentally end up in the input stream.
 %   Because \cs{s_@@_act_stop} can't appear without braces around it in the

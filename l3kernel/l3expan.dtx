@@ -2,7 +2,7 @@
 %
 %% File: l3expan.dtx
 %
-% Copyright (C) 1990-2024 The LaTeX Project
+% Copyright (C) 1990-2025 The LaTeX Project
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -43,7 +43,7 @@
 %    }^^A
 % }
 %
-% \date{Released 2024-02-20}
+% \date{Released 2024-12-25}
 %
 % \maketitle
 %
@@ -75,8 +75,8 @@
 % If \cs{seq_gpush:No} was not defined it could be coded in the following way:
 % \begin{verbatim}
 %   \exp_args:NNo \seq_gpush:Nn
-%      \g_file_name_stack
-%      { \l_tmpa_tl }
+%     \g_file_name_stack
+%     { \l_tmpa_tl }
 % \end{verbatim}
 % In other words, the first argument to \cs{exp_args:NNo} is the base
 % function and the other arguments are preprocessed and then passed to
@@ -135,7 +135,7 @@
 %   then used to define variants of the
 %   \meta{original argument specifier} if these are not already
 %   defined; entries which correspond to existing functions are silently
-%   ingored. For each \meta{variant} given, a function is created
+%   ignored. For each \meta{variant} given, a function is created
 %   that expands its arguments as detailed and passes them
 %   to the \meta{parent control sequence}. So for example
 %   \begin{verbatim}

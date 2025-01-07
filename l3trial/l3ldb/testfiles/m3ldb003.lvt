@@ -23,7 +23,7 @@
 \cs_new:Npn \env_begin:nnn #1#2#3
   { % obj-type env-name ldb-class
     \ldb_update_begin:n { #3 , #2 }
-    \__xtemplate_use_instance_aux:nn { #1 }{ \UseInstanceName }
+    \UseInstance {#1}{ \UseInstanceName }
   }
 \cs_new:Npn \env_end:nn #1 #2
   { % env-name ldb-class
@@ -177,7 +177,7 @@
 % What is different (for now) is that I made ``item'' an environment
 % and a template (again, it is in reality just the original code).
 %
-% It is an environment as the LDB is currenty made up for environemnt
+% It is an environment as the LDB is currently made up for environment
 % type structures and to produce something like \texttt{<item>} in the
 % LDB context one would need to gain control after the command has
 % read its arguments and processed its code and then issue

@@ -215,17 +215,17 @@ l. ...  }
 ============================================================
 TEST 3: Arg spec
 ============================================================
-! LaTeX cmd Error: Command '\space' not defined using xparse.
+! LaTeX cmd Error: Command '\DeclareUppercaseMapping' not defined using xparse.
 For immediate help type H <return>.
  ...                                              
 l. ...  }
-You have asked for the argument specification for the command '\space', but this was not defined using xparse.
+You have asked for the argument specification for the command '\DeclareUppercaseMapping', but this was not defined using xparse.
 macro:->
-! LaTeX cmd Error: Unknown document command '\undefined'.
+! LaTeX cmd Error: Unknown document command '\DeclareUppercaseMapping'.
 For immediate help type H <return>.
  ...                                              
 l. ...  }
-You have asked for the argument specification for the command '\undefined', but it is not defined.
+You have asked for the argument specification for the command '\DeclareUppercaseMapping', but it is not defined.
 ! LaTeX cmd Error: Environment 'verbatim' not defined using xparse.
 For immediate help type H <return>.
  ...                                              
@@ -237,4 +237,14 @@ For immediate help type H <return>.
  ...                                              
 l. ...  }
 You have asked for the argument specification for the environment 'undefined', but it is not defined.
+============================================================
+============================================================
+TEST 4: Optimised specs
+============================================================
+> \ArgumentSpecification=.
+<recently read> }
+l. ...  }
+> \ArgumentSpecification=mmm.
+<recently read> }
+l. ...  }
 ============================================================

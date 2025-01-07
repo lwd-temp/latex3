@@ -17,7 +17,7 @@ jobs:
   # create three jobs which only differ in minimal elements.
   # For tags we do not run this since we run the release job instead.
   l3build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         # include indicates that we want to set explicitly these combinations
@@ -75,9 +75,9 @@ jobs:
   # GitHub automatically informs the initiator of any action about the result, but
   # we additionally want to keep the latex-commits mailing list informed about
   # test failures.
-  notifiy:
+  notify:
     name: Send notifications
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     # Run after the `l3build` job in order to be able to react to it's output.
     needs: l3build
     # Only run if the tests failed, we don't want to get notifications for every run.
@@ -89,7 +89,7 @@ jobs:
       - name: Send mail
         # The explicit commit hash ensures that this can't be used by dawidd6 as a
         # backdoor to execute arbitrary code during our runs.
-        uses: dawidd6/action-send-mail@4226df7daafa6fc901a43789c49bf7ab309066e7 # v3.11.0
+        uses: dawidd6/action-send-mail@611879133a9569642c41be66f4a323286e9b8a3b # v4
         with:
           # Currently using my (Marcel's) mail server for sending mails.
           server_address: typesetting.eu

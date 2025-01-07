@@ -1,4 +1,5 @@
 testfiledir  = "testfiles-l3doc"
+checkdeps    = {maindir .. "/l3packages/l3keys2e"}
 checkengines = { "pdftex" }
 checksearch  = true
 checkruns    = 3

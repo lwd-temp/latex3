@@ -2,7 +2,7 @@
 %
 %% File: l3token.dtx
 %
-% Copyright (C) 2005-2024 The LaTeX Project
+% Copyright (C) 2005-2025 The LaTeX Project
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -43,7 +43,7 @@
 %    }^^A
 % }
 %
-% \date{Released 2024-02-20}
+% \date{Released 2024-12-25}
 %
 % \maketitle
 %
@@ -151,7 +151,7 @@
 %   $0$ is not allowed.
 %   Active characters cannot be generated in older versions of \XeTeX{}.
 %   Another way to build token lists with unusual category codes is
-%   \cs{regex_replace:nnN} |{.*}| \Arg{replacement} \meta{tl~var}.
+%   \cs{regex_replace_all:nnN} |{.*}| \Arg{replacement} \meta{tl~var}.
 %   \begin{texnote}
 %     Exactly two expansions are needed to produce the character.
 %   \end{texnote}
@@ -443,12 +443,6 @@
 %   not be used other than for category code tests.
 % \end{variable}
 %
-% \begin{variable}{\c_catcode_active_tl}
-%   A token list containing an active token. This is used internally
-%   for test purposes and should not be used other than in
-%   appropriately-constructed category code tests.
-% \end{variable}
-%
 % \section{Converting tokens}
 %
 % \begin{function}[EXP]{\token_to_meaning:N, \token_to_meaning:c}
@@ -660,7 +654,10 @@
 %     \cs{token_if_long_macro_p:N} \meta{token} \\
 %     \cs{token_if_long_macro:NTF} \meta{token} \Arg{true code} \Arg{false code}
 %   \end{syntax}
-%   Tests if the \meta{token} is a long macro.
+%   Tests if the \meta{token} is a long macro with no other prefix; to 
+%   test for a macro that is both long and protected, use
+%   \cs[index = token_if_protected_long_macro:NTF]^^A
+%   {token_if_protected_long_macro:N(TF)}.
 % \end{function}
 %
 % \begin{function}[EXP,pTF, updated=2012-01-20]{\token_if_protected_macro:N}
@@ -668,8 +665,10 @@
 %     \cs{token_if_protected_macro_p:N} \meta{token} \\
 %     \cs{token_if_protected_macro:NTF} \meta{token} \Arg{true code} \Arg{false code}
 %   \end{syntax}
-%   Tests if the \meta{token} is a protected macro: for a macro which
-%   is both protected and long this returns \texttt{false}.
+%   Tests if the \meta{token} is a protected macro with no other prefix; to 
+%   test for a macro that is both protected and long, use
+%   \cs[index = token_if_protected_long_macro:NTF]^^A
+%   {token_if_protected_long_macro:N(TF)}.
 % \end{function}
 %
 % \begin{function}[EXP,pTF, updated=2012-01-20]{\token_if_protected_long_macro:N}
@@ -776,7 +775,7 @@
 %     ~~\Arg{false code}
 %   \end{syntax}
 %   This function compares the \meta{test token} in turn with each of
-%   the \meta{token cases}. If the two are equal (as described for
+%   the \meta{token case}s. If the two are equal (as described for
 %   \cs{token_if_eq_catcode:NNTF}, \cs{token_if_eq_charcode:NNTF} and
 %   \cs{token_if_eq_meaning:NNTF}, respectively) then the associated
 %   \meta{code} is left in the input stream and other cases are
@@ -794,7 +793,7 @@
 % stream while leaving it in place. This is handled using the
 % \enquote{peek} functions. The generic \cs{peek_after:Nw} is provided
 % along with a family of predefined tests for common cases.  Peeking
-% ahead does \emph{not} skip spaces: rather, \cs{peek_remove_spaces:n}.
+% ahead does \emph{not} skip spaces: rather, \cs{peek_remove_spaces:n}
 % should be used. In addition, using \cs{peek_analysis_map_inline:n},
 % one can map through the following tokens in the input stream and
 % repeatedly perform some tests.
@@ -1013,7 +1012,7 @@
 %     In case the input stream has not yet been tokenized (converted
 %     from characters to tokens), characters are tokenized one by one as
 %     needed by \cs{peek_analysis_map_inline:n} using the current
-%     category code regime.
+%     category code régime.
 %   \end{texnote}
 % \end{function}
 %
@@ -1828,12 +1827,12 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}{\c_catcode_active_tl}
+% \begin{variable}{\c_@@_active_tl}
 %   Not an implicit token!
 %    \begin{macrocode}
 \group_begin:
   \char_set_catcode_active:N \*
-  \tl_const:Nn \c_catcode_active_tl { \exp_not:N * }
+  \tl_const:Nn \c_@@_active_tl { \exp_not:N * }
 \group_end:
 %    \end{macrocode}
 % \end{variable}
@@ -1970,13 +1969,13 @@
 %
 % \begin{macro}[pTF]{\token_if_active:N}
 %   Check if token is an active char token. We use the constant
-%   \cs{c_catcode_active_tl} for this. A technical point is that
-%   \cs{c_catcode_active_tl} is in fact a macro expanding to
+%   \cs{c_@@_active_tl} for this. A technical point is that
+%   \cs{c_@@_active_tl} is in fact a macro expanding to
 %   |\exp_not:N *|, where |*| is active.
 %    \begin{macrocode}
 \prg_new_conditional:Npnn \token_if_active:N #1 { p , T ,  F , TF }
   {
-    \if_catcode:w \exp_not:N #1 \c_catcode_active_tl
+    \if_catcode:w \exp_not:N #1 \c_@@_active_tl
       \prg_return_true: \else: \prg_return_false: \fi:
   }
 %    \end{macrocode}
@@ -2298,7 +2297,7 @@
 %   is not a primitive.
 %
 %   For \LuaTeX{} we use a different implementation which just looks at the
-%   command code for the token and compaes it to a list of non-primitives.
+%   command code for the token and compares it to a list of non-primitives.
 %   Again, \tn{nullfont} is a special case because it is the only primitive
 %   with the normally non-primitive |set_font| command code.
 %
@@ -2345,11 +2344,11 @@ do
     [cmd'outer_call' or cmd'tolerant_call'] = true,
     [cmd'long_outer_call' or cmd'tolerant_protected_call'] = true,
     [cmd'assign_glue' or cmd'register_glue'] = index_not_nil,
-    [cmd'assign_mu_glue' or cmd'register_mu_glue'] = index_not_nil,
+    [cmd'assign_mu_glue' or cmd'register_mu_glue' or cmd'register_muglue'] = index_not_nil,
     [cmd'assign_toks' or cmd'register_toks'] = index_not_nil,
-    [cmd'assign_int' or cmd'register_int'] = index_not_nil,
+    [cmd'assign_int' or cmd'register_int' or cmd'register_integer'] = index_not_nil,
     [cmd'assign_attr' or cmd'register_attribute'] = true,
-    [cmd'assign_dimen' or cmd'register_dimen'] = index_not_nil,
+    [cmd'assign_dimen' or cmd'register_dimen' or cmd'register_dimension'] = index_not_nil,
   }
 
   luacmd("@@_if_primitive_lua:N", function()
@@ -2376,7 +2375,7 @@ end
       }
   }
   {
-    \tex_chardef:D \c_@@_A_int = `A ~ %
+    \tex_global:D \tex_chardef:D \c_@@_A_int = `A ~ %
     \use:e
       {
         \prg_new_conditional:Npnn \exp_not:N \token_if_primitive:N #1
@@ -2828,7 +2827,7 @@ end
 %     \peek_meaning_remove:N,
 %   }
 %   The public functions themselves cannot be defined using
-%   \cs{prg_new_conditional:Npnn}.  Instead, the |TF|, |T|, |F| variants
+%   \cs{prg_new_protected_conditional:Npnn}.  Instead, the |TF|, |T|, |F| variants
 %   are defined in terms of corresponding variants of
 %   \cs{@@_token_generic:NNTF} or \cs{@@_token_remove_generic:NNTF},
 %   with first argument one of \cs{@@_execute_branches_catcode:},

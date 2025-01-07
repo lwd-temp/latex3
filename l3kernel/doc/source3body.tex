@@ -285,7 +285,7 @@ pass it to |\foo:N|.
 
 Variables are named in a similar manner to functions, but begin with
 a single letter to define the type of variable:
-\begin{description}
+\begin{description}[leftmargin=2\parindent, labelindent*=-\parindent]
   \item[\texttt{c}] Constant: global parameters whose value should not
     be changed.
   \item[\texttt{g}] Parameters whose value should only be set globally.
@@ -302,7 +302,7 @@ function, typically starting with the module\footnote{The module names are
   \texttt{\string\l_int_tmpa_int} would be very unreadable.}  name
 and then a descriptive part.
 Variables end with a short identifier to show the variable type:
-\begin{description}%  
+\begin{description}[leftmargin=2\parindent, labelindent*=-\parindent]
   \item[\texttt{bitset}] a set of bits (a string made up of a series of \texttt{0}
     and \texttt{1} tokens that are accessed by position).
   \item[\texttt{clist}] Comma separated list.
@@ -318,7 +318,7 @@ Variables end with a short identifier to show the variable type:
 Applying \texttt{V}-type or \texttt{v}-type expansion to variables of
 one of the above types is supported, while it is not supported for the
 following variable types:
-\begin{description}
+\begin{description}[leftmargin=2\parindent, labelindent*=-\parindent]
   \item[\texttt{bool}] Either true or false.
   \item[\texttt{box}] Box register.
   \item[\texttt{coffin}] A \enquote{box with handles} --- a higher-level
@@ -343,6 +343,19 @@ two local and two global, with names of the form
 are never used by the core code. The nature of \TeX{} grouping means that as
 with any other scratch variable, these should only be set and used with no
 intervening third-party code.
+
+There are two more special types of constants:
+\begin{description}[leftmargin=2\parindent, labelindent*=-\parindent]
+  \item[\texttt{q}] Quark constants.
+  \item[\texttt{s}] Scan mark constants.
+\end{description}
+Similarly, each quark or scan mark name starts with the module name,
+but doesn't end with a variable type, because the type is already
+marked by the prefix \texttt{q} or \texttt{s}.
+Some general quarks and scan marks provided by \LaTeX3 don't start
+with a module name, for example \cs{s_stop}.
+See documentation of quarks and scan marks in Chapter~\ref{sec:l3quarks}
+for more info.
 
 \subsection{Terminological inexactitude}
 
@@ -402,12 +415,12 @@ show this more clearly. They will carry out the same function but will take
 different types of argument:
 \begin{function}[label = ]{\seq_new:N, \seq_new:c}
   \begin{syntax}
-    |\seq_new:N| \meta{sequence}
+    |\seq_new:N| \meta{seq var}
   \end{syntax}
   When a number of variants are described, the arguments are usually
-  illustrated only for the base function. Here, \meta{sequence} indicates
-  that |\seq_new:N| expects the name of a sequence. From the argument
-  specifier, |\seq_new:c| also expects a sequence name, but as a
+  illustrated only for the base function. Here, \meta{seq var} indicates
+  that |\seq_new:N| expects a sequence variable. From the argument
+  specifier, |\seq_new:c| also expects a sequence variable, but as a
   name rather than as a control sequence. Each argument given in the
   illustration should be described in the following text.
 \end{function}
@@ -435,7 +448,7 @@ an \texttt{f}-type argument. In this case a hollow star is used to indicate
 this:
 \begin{function}[rEXP, label = ]{\seq_map_function:NN}
   \begin{syntax}
-    |\seq_map_function:NN| \meta{seq} \meta{function}
+    |\seq_map_function:NN| \meta{seq var} \meta{function}
   \end{syntax}
 \end{function}
 

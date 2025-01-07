@@ -2,7 +2,7 @@
 %
 %% File: l3fp-parse.dtx
 %
-% Copyright (C) 2011-2024 The LaTeX Project
+% Copyright (C) 2011-2025 The LaTeX Project
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -42,7 +42,7 @@
 %          {latex-team@latex-project.org}^^A
 %    }^^A
 % }
-% \date{Released 2024-02-20}
+% \date{Released 2024-12-25}
 %
 % \maketitle
 %
@@ -430,7 +430,7 @@
 % second attempt would be to call \cs{@@_parse_operand:Nw} with the
 % \meta{precedence} of the previous operator, but |0>-2+3| is then
 % parsed as |0>-(2+3)|: the addition is performed because it binds more
-% tightly than the comparision which precedes~|-|.  The correct approach
+% tightly than the comparison which precedes~|-|.  The correct approach
 % is for a unary~|-| to perform operations whose precedence is greater
 % than both that of the previous operation, and that of the unary~|-|
 % itself.  The unary~|-| is given a precedence higher than
